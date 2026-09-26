@@ -1,3 +1,10 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./logo-dark-mode.png">
+  <source media="(prefers-color-scheme: light)" srcset="./logo-light-mode.png">
+  <img alt="Project Logo" src="./logo-light-mode.png" width="200">
+</picture>
+
+
 # 👻 Ghostly Gallery
 
 ### Wallpapers, cursors & icons for your setup.
