@@ -1,6 +1,6 @@
 <div align="center">
   <img src="Ghostly.png" alt="Project Logo" width="200">
-  <h1>Your Project Name</h1>
+  <h1>Ghostly Gallery</h1>
 </div>
 
 
