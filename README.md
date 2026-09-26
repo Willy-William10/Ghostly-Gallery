@@ -1,8 +1,8 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./logo-dark-mode.png">
-  <source media="(prefers-color-scheme: light)" srcset="./logo-light-mode.png">
-  <img alt="Project Logo" src="./logo-light-mode.png" width="200">
-</picture>
+<div align="center">
+  <img src="Ghostly.png" alt="Project Logo" width="200">
+  <h1>Your Project Name</h1>
+</div>
+
 
 
 # 👻 Ghostly Gallery
