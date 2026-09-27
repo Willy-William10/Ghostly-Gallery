@@ -1,71 +1,38 @@
-<div align="center">
-  <img src="Ghostly.png" alt="Project Logo" width="200">
-  <h1>Ghostly Gallery</h1>
-</div>
+# Ghostly Gallery
 
+A static, metadata-driven public gallery for PC wallpapers, phone wallpapers, cursor packs, and icon packs. The site requires no build step, backend, runtime dependency, publisher, or third-party service.
 
+## Run locally
 
-# 👻 Ghostly Gallery
+Serve this folder over HTTP so the browser can load the JSON collection and ES modules. From the project folder, run `py -m http.server 8000`, then visit `http://localhost:8000`. GitHub Pages can serve the same files from a repository subpath.
 
-### Wallpapers, cursors & icons for your setup.
+## Add assets
 
-**Ghostly Gallery** is a simple collection of digital customization content for your devices.
+Add entries to `data/assets.json` and place their files in the matching folder under `assets/`. The collection starts empty intentionally. Example:
 
-Currently, it includes:
+```json
+{
+  "id": "unique-asset-id",
+  "title": "Asset title",
+  "description": "A short description.",
+  "category": "wallpapers",
+  "type": "desktop",
+  "resolution": "2560x1440",
+  "fileSize": "2.4 MB",
+  "colors": ["purple", "blue"],
+  "tags": ["abstract", "night"],
+  "preview": "assets/wallpapers/asset-preview.jpg",
+  "download": "assets/wallpapers/asset.jpg",
+  "createdAt": "2026-09-27"
+}
+```
 
-- 🖼️ **Wallpapers** — Desktop, laptop & phone
-- 🖱️ **Cursors** — Custom cursor packs
-- 🔷 **Icons** — Icons for your setup
+The initial category values are `wallpapers`, `phone-wallpapers`, `cursors`, and `icons`. `file` or `download` points directly to the downloadable file; `preview` can point to a different image. The gallery checks local file paths and disables downloads for missing files. Optional metadata is hidden when absent.
 
----
+## Profiles and favourites
 
-## ✨ Explore
+Profiles, login IDs, theme preferences, and favourites are stored in this browser only. There is no account server, authentication service, or cross-device sync. A generated ID can sign into a profile saved in the same browser; it cannot restore a profile on a different device. Treat the ID as a local key, keep it private, and do not reuse it as a password elsewhere.
 
-Browse and discover content using:
+Selected actions can play quiet, synthesized button sounds. They are created locally with the Web Audio API; no sound files or external services are loaded. Turn them off in Settings.
 
-- 🔍 Search
-- 🏷️ Categories
-- #️⃣ Tags
-- 📐 Resolution
-- 📱 Device type
-- 👀 Previews
-
----
-
-## 🌐 Website
-
-The Ghostly Gallery website will let you browse, preview, and download everything in one place.
-
-**[Visit Ghostly Gallery](#)**
-
-> Website coming soon.
-
----
-
-## 🤝 Contributing
-
-Want to contribute wallpapers, cursors, icons, ideas, or improvements?
-
-📧 **Send them to:**  
-**williamnazih2021@gmail.com**
-
-For content submissions, include the title, category, description, and any useful information about the content.
-
----
-
-## 💻 Built With
-
-- HTML
-- CSS
-- JavaScript
-- GitHub Pages
-
----
-
-## 👻 About
-
-Ghostly Gallery is made to make customization **simple, fun, and easy to discover.**
-
-**Wallpapers. Cursors. Icons.**
-
-### Make your setup yours. 👻
+The QR generator runs locally. QR camera scanning is offered only after choosing that option and requires a secure context (`https://` or `localhost`) plus browser support for `BarcodeDetector`; manual ID entry remains available when scanning is unsupported.
