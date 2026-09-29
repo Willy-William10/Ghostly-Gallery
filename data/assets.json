@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "4b046a89-82bd-4e59-9e7e-10945002a291",
+    "title": "Raining on white cat",
+    "description": "",
+    "category": "wallpapers",
+    "type": "desktop",
+    "theme": "Nature",
+    "aesthetic": "Nature",
+    "style": "Nature",
+    "tags": [
+      "cats",
+      "nature",
+      "rain"
+    ],
+    "colors": [
+      "blue",
+      "cyan",
+      "white"
+    ],
+    "size": "1.4 MB",
+    "file": "assets/wallpapers/raining-on-white-cat-4b046a89.jpeg",
+    "preview": "assets/wallpapers/raining-on-white-cat-4b046a89.jpeg",
+    "createdAt": "2026-09-29T19:23:51.818Z"
+  }
+]
