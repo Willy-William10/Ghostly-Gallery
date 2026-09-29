@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "dc874aae-ecee-4016-8f90-a33701011e8b",
+    "title": "arch material design light",
+    "description": "",
+    "category": "wallpapers",
+    "type": "",
+    "theme": "Light",
+    "aesthetic": "Light",
+    "style": "Minimal",
+    "tags": [
+      "arch",
+      "light",
+      "material 3 expressive",
+      "minimal"
+    ],
+    "colors": [
+      "cyan",
+      "blue"
+    ],
+    "size": "13 KB",
+    "file": "assets/wallpapers/arch-material-design-light-dc874aae.jpg",
+    "preview": "assets/wallpapers/arch-material-design-light-dc874aae.jpg",
+    "createdAt": "2026-09-29T14:00:52.805Z"
+  }
+]
