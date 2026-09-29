@@ -1,44 +1,106 @@
-# Ghostly Gallery
+# 👻 Ghostly Gallery
 
-A static, metadata-driven public gallery for PC wallpapers, phone wallpapers, cursor packs, and icon packs. The site requires no build step, backend, or publisher. The MP4 converter fetches its optional FFmpeg/WASM engine from a CDN only when a user starts a conversion.
+<p align="center">
+  <img src="Ghotly.png" alt="Ghostly Gallery Logo" width="180">
+</p>
 
-## Run locally
+<h1 align="center">Ghostly Gallery</h1>
 
-Serve this folder over HTTP so the browser can load the JSON collection and ES modules. From the project folder, run `py -m http.server 8000`, then visit `http://localhost:8000`. GitHub Pages can serve the same files from a repository subpath.
+<p align="center">
+  <strong>Enter the world of aesthetic customization.</strong>
+  <br>
+  Discover wallpapers, cursors, and icons to make your devices uniquely yours.
+</p>
 
-## Add assets
+<p align="center">
+  <a href="https://willy-william10.github.io/Ghostly-Gallery/">
+    <img src="https://img.shields.io/badge/🌐_Visit-Ghostly_Gallery-75E6A5?style=for-the-badge" alt="Visit Ghostly Gallery">
+  </a>
+</p>
 
-Add entries to `data/assets.json` and place their files in the matching folder under `assets/`. The collection starts empty intentionally. Example:
+---
 
-```json
-{
-  "id": "unique-asset-id",
-  "title": "Asset title",
-  "description": "A short description.",
-  "category": "wallpapers",
-  "type": "desktop",
-  "resolution": "2560x1440",
-  "fileSize": "2.4 MB",
-  "colors": ["purple", "blue"],
-  "tags": ["abstract", "night"],
-  "preview": "assets/wallpapers/asset-preview.jpg",
-  "download": "assets/wallpapers/asset.jpg",
-  "createdAt": "2026-09-27"
-}
-```
+## 🌐 Website
 
-The initial category values are `wallpapers`, `phone-wallpapers`, `cursors`, and `icons`. `file` or `download` points directly to the downloadable file; `preview` can point to a different image. The gallery checks local file paths and disables downloads for missing files. Optional metadata is hidden when absent.
+**Explore Ghostly Gallery:**
+https://willy-william10.github.io/Ghostly-Gallery/
 
-## Guest favourites and image conversion
+Ghostly Gallery is a customization website created to bring beautiful wallpapers and personalization assets together in one place. Whether you're looking for a fresh desktop aesthetic or small details to transform your setup, Ghostly is here to help.
 
-Favourites are saved in this browser only. The gallery has no account, login, signup, or publishing server.
+## ✨ What is Ghostly Gallery?
 
-The Converters section works locally in the browser. It accepts PNG, GIF, JPG/JPEG, and SVG files up to 25 MB and can export PNG, JPEG, or SVG. GIF conversion uses a still frame. JPEG fills transparent areas with white by default, with a background color picker. SVG input is checked for scripts, external links, and embedded active content before preview. SVG output embeds the converted raster image; it does not vectorize it.
+Ghostly Gallery is a personal project focused on discovering and downloading digital customization assets.
 
-Selected actions can play quiet, synthesized button sounds. They are created locally with the Web Audio API; no sound files or external services are loaded. Use Button sounds in the sidebar to mute or enable them.
+The goal is simple: create a visually immersive gallery where people can explore different styles, find assets that match their aesthetic, and customize their devices.
 
-## Additional tools
+With its distinctive ghost-inspired identity, modern interface, and carefully organized content, Ghostly aims to make customization feel fun, creative, and effortless.
 
-MP4 → MP3 is available from the Converters page. FFmpeg/WASM is loaded only after the user selects an MP4 and starts conversion. Its core files (about 31 MB) are fetched from jsDelivr on that first conversion; the video itself is processed in the browser and is not uploaded. The site must be served over HTTP or HTTPS for the worker to run.
+## 🖼️ What's Inside?
 
-The Background Remover page currently provides local file validation and preview only. No background-removal engine or model is included, so it does not claim to produce a transparent result or offer a fake download.
+* **Wallpapers** — Discover wallpapers for your desktop and other devices.
+* **Cursors** — Give your pointer a fresh look.
+* **Icons** — Personalize your desktop with unique icon designs.
+* **Aesthetic Collections** — Explore assets organized by their visual styles and characteristics.
+* **Direct Downloads** — Download available assets directly from the website.
+
+## 🎨 Explore Your Aesthetic
+
+Ghostly Gallery is designed around visual discovery.
+
+As assets are published with their details, the gallery can organize them into relevant categories and filters, making it easier to find exactly what you're looking for.
+
+Find your style, explore the collection, and give your setup a new identity.
+
+## 👻 The Ghostly Experience
+
+Ghostly isn't just about collecting wallpapers. It's about creating a distinctive experience.
+
+The project embraces a ghost-inspired visual identity, modern design, smooth animations, and an immersive interface that makes browsing feel special.
+
+Every detail contributes to the goal of making Ghostly Gallery a memorable place for digital customization.
+
+## 🛠️ Built With
+
+* HTML5
+* CSS3
+* JavaScript
+* GitHub Pages
+
+The website is designed to be lightweight and accessible through a modern web browser.
+
+## 🚀 Publishing & Downloads
+
+Ghostly Gallery is hosted using GitHub Pages.
+
+The project is designed to support a separate publishing workflow for managing gallery content, allowing new assets and their details to be added to the public website.
+
+Available assets are intended to be downloadable directly from Ghostly Gallery, without requiring visitors to navigate through another website to obtain the file.
+
+## 📩 Contact, Contributions & Wallpaper Submissions
+
+Have a wallpaper you'd love to see in Ghostly Gallery? Have an idea, suggestion, or skill that could help make the website better? I'd love to hear from you!
+
+Whether it's submitting wallpapers, suggesting new features, reporting bugs, improving the design, or helping with development, **any contribution that helps make Ghostly Gallery better is genuinely appreciated.** 💚
+
+* **Email:** [williamnazih2021@gmail.com](mailto:williamnazih2021@gmail.com)
+* **Submit wallpapers:** Send your wallpapers directly to the email above.
+* **Share ideas & suggestions:** Have an idea that could improve Ghostly? Feel free to reach out.
+* **Help improve Ghostly:** Any form of help, feedback, or contribution is welcome.
+
+When submitting wallpapers, feel free to include the wallpaper's name, aesthetic or style, and any relevant details to help categorize it in the gallery.
+
+### 🌟 Contributors
+
+Every contribution, big or small, helps Ghostly grow. With your permission, your name or preferred username will be added to the **Contributors** section to recognize your help and support.
+
+Thank you for being part of the Ghostly Gallery journey. Together, we can make it even better! 👻💚
+
+<p align="center">
+  <strong>Made with 💚 by willy-William10</strong>
+  <br>
+  <em>See nothing here? 👀 Maybe the ghosts haven't uploaded anything yet.</em>
+</p>
+
+<p align="center">
+  <a href="https://willy-william10.github.io/Ghostly-Gallery/">Visit Ghostly Gallery 👻</a>
+</p>
