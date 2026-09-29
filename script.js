@@ -38,9 +38,43 @@ function saveFavorites() {
   catch { showToast("Favourites are saved for this visit."); }
 }
 
+function bindHeroGaze() {
+  const ghost = document.querySelector(".hero-ghost");
+  if (!ghost) return;
+  const desktopPointer = matchMedia("(min-width: 821px) and (hover: hover) and (pointer: fine)");
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let pointerX = 0;
+  let pointerY = 0;
+  let frame = 0;
+  const resetGaze = () => {
+    ghost.style.removeProperty("--gaze-x");
+    ghost.style.removeProperty("--gaze-y");
+  };
+  const trackPointer = (event) => {
+    if (!desktopPointer.matches || reducedMotion.matches) { resetGaze(); return; }
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const rect = ghost.getBoundingClientRect();
+      if (!rect.width) return;
+      const horizontal = Math.max(-1, Math.min(1, (pointerX - (rect.left + rect.width / 2)) / (window.innerWidth / 2)));
+      const vertical = Math.max(-1, Math.min(1, (pointerY - (rect.top + rect.height / 2)) / (window.innerHeight / 2)));
+      ghost.style.setProperty("--gaze-x", `${horizontal * rect.width * 0.018}px`);
+      ghost.style.setProperty("--gaze-y", `${vertical * rect.height * 0.018}px`);
+    });
+  };
+  window.addEventListener("pointermove", trackPointer, { passive: true });
+  window.addEventListener("blur", resetGaze);
+  desktopPointer.addEventListener("change", (event) => { if (!event.matches) resetGaze(); });
+  reducedMotion.addEventListener("change", (event) => { if (event.matches) resetGaze(); });
+}
+
 
 applyTheme(readTheme());
 bindEvents();
+bindHeroGaze();
 readUrlState();
 setSidebarTab("gallery");
 setSidebarOpen(false);
