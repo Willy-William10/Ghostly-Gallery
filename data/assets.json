@@ -46,5 +46,34 @@
     "file": "assets/wallpapers/whitecat-with-glasses-acda40e9.png",
     "preview": "assets/wallpapers/whitecat-with-glasses-acda40e9.png",
     "createdAt": "2026-09-29T19:24:03.336Z"
+  },
+  {
+    "id": "d0d6aca4-7401-4acd-bf47-edafca7ec5fe",
+    "title": "Cosmic Cat — Starry Night",
+    "description": "A mysterious black cat gazes into a mesmerizing cosmic night sky filled with swirling blue clouds, glowing golden stars, and magical celestial patterns. A dreamy, Van Gogh-inspired illustration perfect for bringing a touch of cosmic magic to your phone screen.",
+    "category": "phone-wallpapers",
+    "type": "Mobile, Portrait, HD, Static",
+    "theme": "Celestial, Dark, Dreamy, Cosmic",
+    "aesthetic": "Celestial, Dark, Dreamy, Cosmic",
+    "style": "Digital Illustration, Painterly",
+    "tags": [
+      "black cat",
+      "phone wallpaper",
+      "cat",
+      "cosmic",
+      "galaxy"
+    ],
+    "colors": [
+      "Minight blue",
+      "Navy",
+      "Sky",
+      "Cyan",
+      "Golden",
+      "Black"
+    ],
+    "size": "2.8 MB",
+    "file": "assets/phone-wallpapers/cosmic-cat-starry-night-d0d6aca4.png",
+    "preview": "assets/phone-wallpapers/cosmic-cat-starry-night-d0d6aca4.png",
+    "createdAt": "2026-09-29T19:41:57.444Z"
   }
 ]
