@@ -22,5 +22,29 @@
     "file": "assets/wallpapers/raining-on-white-cat-4b046a89.jpeg",
     "preview": "assets/wallpapers/raining-on-white-cat-4b046a89.jpeg",
     "createdAt": "2026-09-29T19:23:51.818Z"
+  },
+  {
+    "id": "acda40e9-4f7d-4fb6-b7ee-1af1afdc81ef",
+    "title": "Whitecat with glasses",
+    "description": "",
+    "category": "wallpapers",
+    "type": "desktop",
+    "theme": "Nature",
+    "aesthetic": "Nature",
+    "style": "Nature",
+    "tags": [
+      "cats",
+      "nature",
+      "rain"
+    ],
+    "colors": [
+      "blue",
+      "cyan",
+      "white"
+    ],
+    "size": "2.7 MB",
+    "file": "assets/wallpapers/whitecat-with-glasses-acda40e9.png",
+    "preview": "assets/wallpapers/whitecat-with-glasses-acda40e9.png",
+    "createdAt": "2026-09-29T19:24:03.336Z"
   }
 ]
