@@ -1,7 +1,7 @@
 # 👻 Ghostly Gallery
 
 <p align="center">
-  <img src="Ghotly.png" alt="Ghostly Gallery Logo" width="180">
+  <img src="Ghostly.png" alt="Ghostly Gallery Logo" width="180">
 </p>
 
 <h1 align="center">Ghostly Gallery</h1>
