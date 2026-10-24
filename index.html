@@ -11,8 +11,8 @@
   <title>Ghostly Gallery — A little digital haunting</title>
   <link rel="icon" href="assets/brand/ghostly-favicon.png" type="image/png" sizes="96x96">
   <link rel="apple-touch-icon" href="assets/brand/ghostly-favicon.png">
-  <link rel="stylesheet" href="style.css?v=complete-redesign-7">
-  <script type="module" src="script.js?v=complete-redesign-5"></script>
+  <link rel="stylesheet" href="style.css?v=gg2-redesign-13">
+  <script type="module" src="script.js?v=gg2-redesign-13"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to gallery</a>
@@ -20,42 +20,28 @@
   <button class="sidebar-scrim" id="sidebar-scrim" type="button" aria-label="Close navigation" hidden></button>
 
   <div class="app-shell" id="app-shell">
-    <aside class="sidebar" id="sidebar" aria-label="Main sidebar" aria-hidden="true">
-      <div class="sidebar-tabs" role="tablist" aria-label="Sidebar sections">
-        <button class="sidebar-tab is-active" id="tab-gallery" type="button" role="tab" aria-selected="true" aria-controls="panel-gallery" data-sidebar-tab="gallery">Gallery</button>
-        <button class="sidebar-tab" id="tab-tools" type="button" role="tab" aria-selected="false" aria-controls="panel-tools" data-sidebar-tab="tools">Tools</button>
-        <button class="sidebar-tab" id="tab-settings" type="button" role="tab" aria-selected="false" aria-controls="panel-settings" data-sidebar-tab="settings">Settings</button>
-      </div>
-      <div class="sidebar-content">
-        <section class="sidebar-tab-panel" id="panel-gallery" role="tabpanel" aria-labelledby="tab-gallery" data-sidebar-panel="gallery">
-          <p class="sidebar-section-label">YOUR LIBRARY</p>
-          <nav class="sidebar-nav" aria-label="Gallery collections">
-            <button class="nav-item" type="button" data-view="wallpapers" data-label="PC Wallpapers" style="--nav-accent: var(--wall)" aria-label="PC Wallpapers"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="12" rx="2"/><path d="M8 20h8M12 16v4M7.5 12l3-3 2.2 2.2 1.5-1.5 2.3 2.3"/></svg><span>PC Wallpapers</span></button>
-            <button class="nav-item" type="button" data-view="phone-wallpapers" data-label="Phone Wallpapers" style="--nav-accent: var(--phone)" aria-label="Phone Wallpapers"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.4"/><path d="M10 5h4M11 18.5h2"/></svg><span>Phone Wallpapers</span></button>
-            <button class="nav-item" type="button" data-view="cursors" data-label="Cursor Packs" style="--nav-accent: var(--cursor)" aria-label="Cursor Packs"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 13.5 10.5-6 .8-3.4 5.2L5 3Z"/><path d="m13 15 3.2 5"/></svg><span>Cursor Packs</span></button>
-            <button class="nav-item" type="button" data-view="icons" data-label="Icon Packs" style="--nav-accent: var(--icons)" aria-label="Icon Packs"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span>Icon Packs</span></button>
-            <button class="nav-item" type="button" data-view="favorites" data-label="Favourites" style="--nav-accent: var(--favs)" aria-label="Favourites"><svg class="nav-icon nav-icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.6Z"/></svg><span>Favourites</span><span class="nav-count" id="favorite-count" hidden>0</span></button>
-          </nav>
-        </section>
-        <section class="sidebar-tab-panel" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools" data-sidebar-panel="tools" hidden>
-          <p class="sidebar-section-label">TOOLS</p>
-          <nav class="sidebar-tools-nav" aria-label="Creative tools">
-            <button class="nav-item" type="button" data-view="converters" data-label="Converters" aria-label="Converters"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11m0 0-3-3m3 3-3 3M20 17H9m0 0 3 3m-3-3 3-3"/></svg><span>Converters</span></button>
-            <button class="nav-item" type="button" data-view="background-remover" data-label="Background Remover" aria-label="Background Remover"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 15 4-4 3 3 3-5 6 7"/><path d="M7 7h.01"/></svg><span>Background Remover</span></button>
-          </nav>
-        </section>
-        <section class="sidebar-tab-panel sidebar-settings-panel" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" data-sidebar-panel="settings" hidden>
-          <p class="sidebar-section-label">PREFERENCES</p>
-          <div class="sidebar-setting"><div><strong>Appearance</strong><small>Choose your gallery theme.</small></div><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch to light theme"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 15.2A8.5 8.5 0 0 1 8.8 3.4 8.6 8.6 0 1 0 20.6 15.2Z"/></svg></button></div>
-          <button class="nav-item sound-toggle" id="sound-toggle" type="button" aria-label="Mute button sounds" aria-pressed="true" title="Mute button sounds"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M17 9a5 5 0 0 1 0 6m2-9a9 9 0 0 1 0 12"/></svg><span>Button sounds</span></button>
-        </section>
-      </div>
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation" aria-hidden="false">
+      <div class="sidebar-brand"><a href="./" aria-label="Ghostly Gallery home"><span>Ghostly Gallery</span></a><button class="sidebar-collapse" id="sidebar-collapse-button" type="button" aria-label="Collapse sidebar" aria-expanded="true" aria-controls="sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7M20 5l-7 7 7 7"/></svg></button></div>
+      <p class="sidebar-section-label">LIBRARY</p>
+      <nav class="sidebar-nav" aria-label="Gallery">
+        <button class="nav-item" type="button" data-view="recommended" data-label="For you" aria-label="For you"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2Z"/><path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z"/></svg><span class="nav-label">For you</span></button>
+        <button class="nav-item" type="button" data-view="dashboard" data-label="Activity" aria-label="Activity"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 5-6"/></svg><span class="nav-label">Activity</span></button>
+        <button class="nav-item" type="button" data-view="wallpapers" data-label="Desktop" aria-label="Desktop wallpapers" style="--nav-accent:var(--wall)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="12" rx="2"/><path d="M8 20h8M12 16v4M7.5 12l3-3 2.2 2.2 1.5-1.5 2.3 2.3"/></svg><span class="nav-label">Desktop</span></button>
+        <button class="nav-item" type="button" data-view="phone-wallpapers" data-label="Phone" aria-label="Phone wallpapers" style="--nav-accent:var(--phone)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.4"/><path d="M10 5h4M11 18.5h2"/></svg><span class="nav-label">Phone</span></button>
+        <button class="nav-item" type="button" data-view="cursors" data-label="Cursors" aria-label="Cursor packs" style="--nav-accent:var(--cursor)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 13.5 10.5-6 .8-3.4 5.2L5 3Z"/><path d="m13 15 3.2 5"/></svg><span class="nav-label">Cursors</span></button>
+        <button class="nav-item" type="button" data-view="icons" data-label="Icons" aria-label="Icon packs" style="--nav-accent:var(--icons)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span class="nav-label">Icons</span></button>
+        <button class="nav-item" type="button" data-view="collections" data-label="Collections & packages" aria-label="Collections and packages" style="--nav-accent:var(--accent)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="12" height="15" rx="2"/><path d="M7 9h5M7 12h5M7 15h3"/><path d="M9 3.5h10a2 2 0 0 1 2 2v11"/></svg><span class="nav-label">Collections &amp; packages</span></button>
+        <button class="nav-item" type="button" data-view="favorites" data-label="Favourites" aria-label="Favourites" style="--nav-accent:var(--favs)"><svg class="nav-icon nav-icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.6Z"/></svg><span class="nav-label">Favourites</span><span class="nav-count" id="favorite-count" hidden>0</span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-divider"></div>
+      <button class="nav-item sidebar-settings-trigger" id="settings-open" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" aria-label="Open settings"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.5.9l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.5-.9l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-1.8l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.5-.9l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.5.9l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1 0 1.8Z"/></svg><span class="nav-label">Settings</span></button>
+      <p class="sidebar-local-note"><span class="local-pulse" aria-hidden="true"></span><span>Saved in this browser</span></p>
     </aside>
-
     <div class="main-column">
       <header class="topbar">
         <div class="topbar-leading">
-          <button class="mobile-menu-button" id="mobile-menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="menu-line menu-line-one" d="M4 7h16"/><path class="menu-line menu-line-two" d="M4 12h16"/><path class="menu-line menu-line-three" d="M4 17h16"/></svg></button>
+          <button class="topbar-menu-button mobile-menu-button" id="topbar-menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
           <img class="topbar-ghost-icon" src="assets/brand/ghostly-favicon.png" alt="" aria-hidden="true">
           <div class="topbar-page-title" id="breadcrumb-title">The Gallery</div>
         </div>
@@ -85,6 +71,13 @@
       </header>
 
       <main id="main">
+        <section class="welcome-strip" id="welcome-strip" hidden><div><p class="eyebrow">YOUR GHOSTLY WORKSPACE</p><h2 id="welcome-name"></h2><p id="welcome-note">A little corner for your next favourite.</p></div><button class="button-secondary" id="edit-profile" type="button">Edit preferences</button></section>
+        <section class="dashboard-section" id="dashboard" hidden aria-labelledby="dashboard-title">
+          <div class="converter-heading"><p class="eyebrow">YOUR LOCAL WORKSPACE</p><h1 id="dashboard-title">Your dashboard<span>.</span></h1><p>Activity saved in this browser. It is not shared across visitors or devices.</p></div>
+          <div class="stats-grid"><article class="stat-card"><span>Download clicks</span><strong id="stat-downloads">0</strong><small>Started from this browser</small></article><article class="stat-card"><span>Favourites</span><strong id="stat-favorites">0</strong><small>Saved in your library</small></article><article class="stat-card"><span>Most explored</span><strong id="stat-category">—</strong><small>Based on local visits</small></article><article class="stat-card"><span>Conversions</span><strong id="stat-conversions">0</strong><small>Completed in this browser</small></article></div>
+          <div class="dashboard-bottom"><div><p class="eyebrow">YOUR INTERESTS</p><div class="profile-tags" id="profile-tags"></div></div><button class="converter-reset" id="reset-profile" type="button">Reset local profile and activity</button></div>
+          <section class="dashboard-workshop" aria-labelledby="workshop-title"><div><p class="eyebrow">LOCAL CREATIVE TOOLS</p><h2 id="workshop-title">The little workshop</h2><p>Choose an image utility. Your files stay in this browser.</p></div><div class="dashboard-workshop-actions"><button class="button-secondary" type="button" data-action="open-image-converter">Image converter <span aria-hidden="true">↗</span></button><button class="button-secondary" type="button" data-action="open-background-remover">Background remover <span aria-hidden="true">↗</span></button></div></section>
+        </section>
         <section class="hero" id="home" aria-labelledby="hero-title">
           <div class="hero-copy">
             <p class="hero-kicker"><span class="kicker-star">✳</span> A LITTLE DIGITAL HAUNTING</p>
@@ -103,26 +96,26 @@
           </div>
           <div class="collection-controls">
             <div class="active-filters" id="active-filters" aria-live="polite"></div>
-            <label class="sort-control">Sort by <select id="sort-select" aria-label="Sort assets"><option value="newest">Recently added</option><option value="title">Name A–Z</option><option value="oldest">Oldest first</option></select><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></label>
+            <div class="sort-wrap"><button class="sort-trigger" id="sort-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="sort-menu"><span>Sort:</span><strong id="sort-current">Newest</strong><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="sort-menu" id="sort-menu" role="listbox" aria-label="Sort assets" hidden></div></div>
           </div>
           <div class="gallery-grid" id="gallery-grid" aria-live="polite" aria-busy="true"></div>
           <div class="empty-state" id="empty-state" hidden>
             <div class="empty-art" aria-hidden="true"><span class="empty-moon"></span><span class="empty-star empty-star-a">✦</span><span class="empty-star empty-star-b">✧</span><span class="empty-ghost"><i></i><i></i><b></b></span></div>
-            <p class="eyebrow">THE GALLERY IS RESTING</p><h3>nothing here👀</h3><p id="empty-description">The shelves are waiting for their first little oddity. Check back soon.</p><button class="empty-reset" id="empty-reset" type="button" hidden>Clear your filters <span aria-hidden="true">↗</span></button>
+            <p class="eyebrow">THE GALLERY IS RESTING</p><h3>nothing here <span aria-hidden="true">👀</span></h3><p id="empty-description">The shelves are waiting for their first little oddity. Check back soon.</p><button class="empty-reset" id="empty-reset" type="button" hidden>Browse all assets <span aria-hidden="true">↗</span></button>
           </div>
           <div class="error-state" id="error-state" hidden><span class="error-glyph" aria-hidden="true">!</span><h3>The collection went quiet</h3><p id="error-message">We couldn’t read the asset collection.</p><button class="button-secondary" id="retry-button" type="button">Try again</button></div>
           <div class="loading-state" id="loading-state"><span class="loading-moon" aria-hidden="true"></span><span>Gathering the collection...</span></div>
         </section>
 
         <section class="converter-section" id="converters" aria-labelledby="converter-title" hidden>
-          <div class="converter-heading"><p class="eyebrow">LOCAL IMAGE WORKSHOP</p><h1 id="converter-title">Converters<span>.</span></h1><p>Change image formats right here in your browser. Your files stay on this device.</p></div>
+          <div class="converter-heading"><p class="eyebrow">LOCAL IMAGE WORKSHOP</p><h1 id="converter-title">Image converter<span>.</span></h1><p>Change image formats right here in your browser. Your files stay on this device.</p><button class="button-secondary tool-back" type="button" data-action="tools-home">← Back to tools</button></div>
           <div class="converter-panel">
             <label class="converter-drop" id="converter-drop" for="converter-file"><span class="converter-upload-icon" aria-hidden="true">↑</span><strong>Choose an image to convert</strong><span>PNG, GIF, JPG, JPEG, or SVG · up to 25 MB</span><input id="converter-file" type="file" accept=".png,.gif,.jpg,.jpeg,.svg,image/png,image/gif,image/jpeg,image/svg+xml"></label>
             <div class="converter-workspace" id="converter-workspace" hidden>
               <div class="converter-preview"><img id="converter-preview" alt="Preview of the selected image"><span id="converter-source-label"></span></div>
               <div class="converter-options">
                 <div><p class="eyebrow">SOURCE FILE</p><strong class="converter-filename" id="converter-filename"></strong><p class="converter-message" id="converter-message" aria-live="polite"></p></div>
-                <label class="converter-field">Convert to<select id="converter-format"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="svg">SVG (embedded image)</option></select></label>
+                <label class="converter-field">Convert to<select id="converter-format"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="ico">ICO (256 × 256)</option><option value="svg">SVG (embedded image)</option></select></label>
                 <label class="converter-field" id="jpeg-background-field" hidden>JPEG background<input id="jpeg-background" type="color" value="#ffffff"><small>Transparent areas use this color. White is the default.</small></label>
                 <button class="button-primary converter-action" id="converter-button" type="button" disabled>Convert image <span aria-hidden="true">↗</span></button>
                 <a class="button-secondary converter-download" id="converter-download" hidden download>Download converted image</a>
@@ -130,7 +123,7 @@
               </div>
             </div>
           </div>
-          <p class="converter-footnote">SVG files are checked for active and external content before preview or conversion. SVG output wraps the converted image; it does not trace pixels into vector shapes. GIF conversion uses a still frame.</p>
+          <p class="converter-footnote">SVG files are checked for active and external content before preview or conversion. SVG output wraps the converted image; it does not trace pixels into vector shapes. ICO output embeds a PNG image at 256 × 256. GIF conversion uses a still frame.</p>
           <article class="media-converter-card" aria-labelledby="mp3-title">
             <div class="media-converter-heading"><span class="media-converter-icon" aria-hidden="true">♫</span><div><p class="eyebrow">AUDIO TOOL</p><h2 id="mp3-title">MP4 <span>→</span> MP3</h2><p>Extract audio from an MP4 video in your browser.</p></div></div>
             <label class="media-file-picker" for="mp4-file"><span>Choose an MP4 video</span><small id="mp4-file-name">MP4 only · up to 200 MB</small><input id="mp4-file" type="file" accept=".mp4,video/mp4"></label>
@@ -139,7 +132,7 @@
           </article>
         </section>
         <section class="background-remover-section" id="background-remover" aria-labelledby="bg-title" hidden>
-          <div class="converter-heading"><p class="eyebrow">LOCAL IMAGE WORKSHOP</p><h1 id="bg-title">Background Remover<span>.</span></h1><p>Choose an image for a local preview. No image is uploaded.</p></div>
+          <div class="converter-heading"><p class="eyebrow">LOCAL IMAGE WORKSHOP</p><h1 id="bg-title">Tools<span>.</span></h1><p>Choose a local image or open the converter. Files stay on this device.</p><button class="button-secondary tool-open-converter" type="button" data-action="open-converter">Open image converter <span aria-hidden="true">↗</span></button></div>
           <div class="converter-panel bg-remover-panel">
             <label class="converter-drop" id="bg-drop" for="bg-file"><span class="converter-upload-icon" aria-hidden="true">✧</span><strong>Choose an image</strong><span>PNG, JPG, or WebP · up to 20 MB</span><input id="bg-file" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"></label>
             <div class="bg-workspace" id="bg-workspace" hidden>
@@ -153,7 +146,10 @@
     </div>
   </div>
 
+  <dialog class="app-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-title"><div class="settings-shell"><div class="settings-heading"><div><p class="eyebrow">THIS BROWSER</p><h2 id="settings-title">Settings</h2></div><button class="dialog-close" id="settings-close" type="button" aria-label="Close settings">×</button></div><section class="settings-block appearance-block" aria-labelledby="theme-title"><div class="settings-block-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h3 id="theme-title">Appearance</h3></div><span>60 curated themes</span></div><label class="theme-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><span class="sr-only">Search themes</span><input id="theme-search" type="search" placeholder="Search Catppuccin, Nord, One Dark…" autocomplete="off"></label><div class="theme-grid" id="theme-grid" role="listbox" aria-label="Gallery themes"></div></section><section class="settings-block settings-sound"><div><h3>Button sounds</h3><p>Sound effects play only in this browser.</p></div><button class="sound-toggle" id="sound-toggle" type="button" aria-label="Mute button sounds" aria-pressed="true"><span class="sound-icon" aria-hidden="true"></span></button></section><p class="settings-footnote">Your profile, theme, and favourites stay in this browser.</p></div></dialog>
   <dialog class="app-dialog asset-dialog" id="asset-dialog" aria-labelledby="asset-dialog-title"><div class="dialog-shell" id="asset-dialog-content"></div></dialog>
+  <dialog class="app-dialog onboarding-dialog" id="onboarding-dialog" aria-labelledby="onboarding-title"><form class="onboarding-form" id="onboarding-form"><p class="eyebrow">A LOCAL PROFILE, JUST FOR THIS BROWSER</p><h1 id="onboarding-title">Welcome to Ghostly Gallery</h1><p class="onboarding-intro">Tailor your creative workstation. Your preferences stay on this device; there is no password or account.</p><label class="onboarding-name">Display name<input id="profile-name" name="username" maxlength="32" autocomplete="nickname" required pattern="[A-Za-z0-9_\\- ]{2,32}" placeholder="Your name"></label><fieldset><legend>What do you enjoy?</legend><div class="choice-grid"><label><input type="checkbox" name="interest" value="minimalism"><span>Minimalism</span></label><label><input type="checkbox" name="interest" value="cyberpunk"><span>Cyberpunk / Neon</span></label><label><input type="checkbox" name="interest" value="fantasy-rpg"><span>Fantasy & RPG</span></label><label><input type="checkbox" name="interest" value="nordic-nature"><span>Nordic / Nature</span></label><label><input type="checkbox" name="interest" value="pixel-art"><span>Pixel Art</span></label><label><input type="checkbox" name="interest" value="studio-abstract"><span>Studio Abstract</span></label><label><input type="checkbox" name="interest" value="monochrome"><span>Monochrome & Ink</span></label><label><input type="checkbox" name="interest" value="isometric-3d"><span>Isometric 3D</span></label></div></fieldset><fieldset><legend>What would you like to find?</legend><div class="choice-grid"><label><input type="checkbox" name="assetType" value="desktop-wallpapers"><span>Desktop wallpapers</span></label><label><input type="checkbox" name="assetType" value="phone-wallpapers"><span>Phone wallpapers</span></label><label><input type="checkbox" name="assetType" value="mouse-cursors"><span>Mouse cursors</span></label><label><input type="checkbox" name="assetType" value="icon-packs"><span>App icon packs</span></label><label><input type="checkbox" name="assetType" value="ui-kits"><span>UI inspiration</span></label><label><input type="checkbox" name="assetType" value="soundscapes"><span>Soundscapes</span></label></div></fieldset><label class="onboarding-name">Your vibe<select name="vibe"><option value="calm">Calm & Cozy</option><option value="cyber">High-Tech Cyber</option><option value="arcane">Arcane RPG</option><option value="editorial">Editorial Modern</option></select></label><p class="form-error" id="profile-error" role="alert" hidden></p><button class="button-primary onboarding-submit" type="submit">Enter Your Workspace <span aria-hidden="true">↗</span></button></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
+

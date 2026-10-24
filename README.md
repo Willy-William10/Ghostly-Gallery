@@ -33,6 +33,8 @@ Ghostly Gallery is a personal project focused on discovering and downloading dig
 
 The goal is simple: create a visually immersive gallery where people can explore different styles, find assets that match their aesthetic, and customize their devices.
 
+The GG2 workspace adds an optional first-visit local profile for preferences, a recommendation view based on published asset metadata, and a small dashboard. Profile details, favourites, theme choice, and activity counters stay in the current browser; they are not accounts or shared analytics. Gallery assets, collections, and packages are published by gallery administrators through the static catalog. There is no public upload or publishing form.
+
 With its distinctive ghost-inspired identity, modern interface, and carefully organized content, Ghostly aims to make customization feel fun, creative, and effortless.
 
 ## 🖼️ What's Inside?
@@ -40,8 +42,11 @@ With its distinctive ghost-inspired identity, modern interface, and carefully or
 * **Wallpapers** — Discover wallpapers for your desktop and other devices.
 * **Cursors** — Give your pointer a fresh look.
 * **Icons** — Personalize your desktop with unique icon designs.
-* **Aesthetic Collections** — Explore assets organized by their visual styles and characteristics.
-* **Direct Downloads** — Download available assets directly from the website.
+* **Collections & Packages** — One gallery view for administrator-published catalog records that include a collection or package identifier. It uses the same gallery filters, cards, and contextual empty state as other tabs.
+* **Direct Downloads** — Download available published catalog assets directly in the browser.
+* **Local Profile & Recommendations** — Save interests in this browser and browse matching published assets.
+* **Workspace Dashboard** — See browser-local favourite, download-click, category-visit, and conversion counts. Open local image tools from the dashboard.
+* **Themes** — Choose from 60 curated palettes, including Catppuccin, Nord, One Dark, Dracula, Tokyo Night, Gruvbox, Solarized, Rosé Pine, Kanagawa, Everforest, GitHub, and other popular editor themes.
 
 ## 🎨 Explore Your Aesthetic
 
@@ -59,12 +64,16 @@ The project embraces a ghost-inspired visual identity, modern design, smooth ani
 
 Every detail contributes to the goal of making Ghostly Gallery a memorable place for digital customization.
 
+## 🧭 Current catalog
+
+The checked-in manifest currently defines three wallpaper records: two desktop wallpapers and one phone wallpaper. There are no published cursor packs, icon packs, or curated collection/package records in the manifest. Empty views remain explicit until administrators add real records.
+
 ## 🛠️ Built With
 
 * HTML5
 * CSS3
-* JavaScript
-* GitHub Pages
+* JavaScript ES modules (`script.js`, `themes.js`)
+* GitHub Pages (static catalog site)
 
 The website is designed to be lightweight and accessible through a modern web browser.
 
@@ -72,7 +81,7 @@ The website is designed to be lightweight and accessible through a modern web br
 
 Ghostly Gallery is hosted using GitHub Pages.
 
-The project is designed to support a separate publishing workflow for managing gallery content, allowing new assets and their details to be added to the public website.
+This folder contains the static gallery and its checked-in manifest. It does not include an admin application, backend, or secure upload endpoint; adding assets to the public site requires a separate repository publishing workflow.
 
 Available assets are intended to be downloadable directly from Ghostly Gallery, without requiring visitors to navigate through another website to obtain the file.
 

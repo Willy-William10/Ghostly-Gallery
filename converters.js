@@ -85,7 +85,16 @@ export function initConverters() {
     try {
       let blob;
       const formatValue = format.value;
-      if (formatValue === "svg") {
+      if (formatValue === "ico") {
+        const icon = document.createElement("canvas"); icon.width = 256; icon.height = 256;
+        const context = icon.getContext("2d", { alpha: true });
+        const scale = Math.min(256 / source.width, 256 / source.height);
+        const width = Math.max(1, Math.round(source.width * scale)), height = Math.max(1, Math.round(source.height * scale));
+        context.drawImage(source.canvas, Math.round((256 - width) / 2), Math.round((256 - height) / 2), width, height);
+        const base64 = icon.toDataURL("image/png").split(",")[1];
+        const png = Uint8Array.from(atob(base64), (character) => character.charCodeAt(0));
+        blob = encodeIco(png);
+      } else if (formatValue === "svg") {
         const png = source.canvas.toDataURL("image/png");
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${source.width}" height="${source.height}" viewBox="0 0 ${source.width} ${source.height}"><image width="${source.width}" height="${source.height}" href="${png}"/></svg>`;
         blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
@@ -108,6 +117,7 @@ export function initConverters() {
       download.download = `${base}-converted.${extension}`;
       download.textContent = `Download ${extension.toUpperCase()} image`;
       download.hidden = false;
+      document.dispatchEvent(new CustomEvent("ghostly:conversion-complete"));
       setMessage(`Converted successfully · ${source.width} × ${source.height} · ${formatValue.toUpperCase()}`);
     } catch {
       setMessage("Conversion failed in this browser. Try another image format.", "error");
@@ -125,6 +135,16 @@ export function initConverters() {
   window.addEventListener("pagehide", () => { if (outputUrl) URL.revokeObjectURL(outputUrl); });
 
   function formatName(type) { return ({ "image/png": "PNG", "image/gif": "GIF", "image/jpeg": "JPEG", "image/svg+xml": "SVG" })[type]; }
+}
+
+function encodeIco(pngBytes) {
+  const header = new ArrayBuffer(22);
+  const view = new DataView(header);
+  view.setUint16(0, 0, true); view.setUint16(2, 1, true); view.setUint16(4, 1, true);
+  view.setUint8(6, 0); view.setUint8(7, 0); view.setUint8(8, 0); view.setUint8(9, 0);
+  view.setUint16(10, 1, true); view.setUint16(12, 32, true);
+  view.setUint32(14, pngBytes.byteLength, true); view.setUint32(18, 22, true);
+  return new Blob([header, pngBytes], { type: "image/x-icon" });
 }
 
 async function sanitizeSvg(file) {
@@ -202,6 +222,7 @@ function initMp4Converter() {
       download.href = outputUrl;
       download.download = `${source.name.replace(/\.mp4$/i, "") || "ghostly-audio"}.mp3`;
       download.hidden = false;
+      document.dispatchEvent(new CustomEvent("ghostly:conversion-complete"));
       status.classList.remove("is-processing"); status.textContent = `Converted successfully · ${formatBytes(output.byteLength)} MP3. Download it below.`;
       try { await ffmpeg.deleteFile(inputName); await ffmpeg.deleteFile(outputName); } catch { /* The download is already ready. */ }
     } catch (error) {
