@@ -66,7 +66,13 @@ Every detail contributes to the goal of making Ghostly Gallery a memorable place
 
 ## 🧭 Current catalog
 
-The checked-in manifest currently defines three wallpaper records: two desktop wallpapers and one phone wallpaper. There are no published cursor packs, icon packs, or curated collection/package records in the manifest. Empty views remain explicit until administrators add real records.
+The current `data/assets.json` manifest in this checkout is an empty array, so the published-assets count is zero and empty views remain explicit until administrators add catalog records.
+
+## Analytics
+
+The public site initializes the PostHog JavaScript SDK once from `analytics.js` using the public project key and US ingestion host. Automatic click capture, session recording, and automatic pageviews are disabled; `analytics.js` sends only the explicit events used by the gallery. Search text and free-form tag values are not sent. Page URLs are sanitized to omit search terms and filter values.
+
+The `GhostlyGalleryPublicMetrics.getPublishedAssetCount()` browser API returns the number of normalized records loaded from the existing `data/assets.json` manifest. It does not count PostHog events or create another catalog.
 
 ## 🛠️ Built With
 

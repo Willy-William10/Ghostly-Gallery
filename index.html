@@ -12,7 +12,10 @@
   <link rel="icon" href="assets/brand/ghostly-favicon.png" type="image/png" sizes="96x96">
   <link rel="apple-touch-icon" href="assets/brand/ghostly-favicon.png">
   <link rel="stylesheet" href="style.css?v=gg2-redesign-13">
-  <script type="module" src="script.js?v=gg2-redesign-13"></script>
+  <script>
+    !function(d,w){var ph=w.posthog=w.posthog||[];if(ph.__SV)return;ph._i=[];ph.init=function(token,config,name){var target=name?ph[name]=[]:ph;target.people=target.people||[];["init","capture","register","register_once","identify","reset","get_distinct_id","get_session_id","get_property","set_config"].forEach(function(method){target[method]=function(){target.push([method].concat(Array.prototype.slice.call(arguments,0)))}});ph._i.push([token,config,name]);var script=d.createElement("script");script.type="text/javascript";script.crossOrigin="anonymous";script.async=true;script.src=config.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js";d.head.appendChild(script)};ph.__SV=1}(document,window);
+  </script>
+  <script type="module" src="script.js?v=gg2-analytics-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to gallery</a>

@@ -1,6 +1,7 @@
 import { playUiSound, setSoundEffectsEnabled, soundEffectsEnabled } from "./sounds.js";
 import { initConverters, initBackgroundRemover } from "./converters.js";
 import { THEMES, THEME_BY_ID, THEME_ALIASES } from "./themes.js";
+import { Analytics } from "./analytics.js";
 
 const CATEGORIES = {
   wallpapers: { label: "Desktop", accent: "var(--wall)" },
@@ -26,9 +27,12 @@ const elements = {
 const state = {
   assets: [], catalogAssets: [], visibleAssets: [], favorites: readFavorites(), view: "all", query: "", sort: "newest",
   filters: { device: "", theme: "", color: "", tag: "" }, loadState: "loading", openAssetId: null,
-  searchTimer: null, toastTimer: null, sidebarOpen: false, sidebarCollapsed: readSidebarCollapsed(), toolPane: "background-remover", assetHistoryPushed: false, mediaMobile: matchMedia("(max-width: 820px)"),
+  searchTimer: null, analyticsSearchTimer: null, toastTimer: null, lastTrackedTagFilter: "", sidebarOpen: false, sidebarCollapsed: readSidebarCollapsed(), toolPane: "background-remover", assetHistoryPushed: false, mediaMobile: matchMedia("(max-width: 820px)"),
   profile: readProfile(), activity: readActivity()
 };
+
+window.GhostlyGalleryPublicMetrics = Object.freeze({ getPublishedAssetCount: Analytics.getPublishedAssetCount });
+document.documentElement.dataset.publishedAssetCount = "0";
 
 function readProfile() { try { const value = JSON.parse(localStorage.getItem("ghostly_user_profile_v1") || "null"); return value?.hasCompletedOnboarding ? value : null; } catch { return null; } }
 function readActivity() { try { const value = JSON.parse(localStorage.getItem("ghostly.activity.v1") || "{}"); return { downloads: Math.max(0, Number(value.downloads) || 0), conversions: Math.max(0, Number(value.conversions) || 0), visits: value.visits && typeof value.visits === "object" ? value.visits : {} }; } catch { return { downloads: 0, conversions: 0, visits: {} }; } }
@@ -57,6 +61,7 @@ function saveFavorites() {
 applyTheme(readTheme());
 bindEvents();
 readUrlState();
+state.lastTrackedTagFilter = state.filters.tag;
 setSidebarOpen(false);
 if (state.profile) {
   showProfile();
@@ -70,6 +75,8 @@ renderThemeOptions();
 renderSortOptions();
 if (["background-remover", "dashboard", "collections"].includes(state.view) || CATEGORIES[state.view]) setView(state.view, false);
 applySidebarLayout();
+Analytics.trackPageview({ view: state.view, assetId: state.openAssetId || "" });
+if (state.view === "collections") Analytics.trackCollectionViewed({ collectionId: "all-collections", collection: "Collections & packages" });
 loadAssets();
 
 function bindEvents() {
@@ -108,19 +115,32 @@ function bindEvents() {
     renderGallery();
     clearTimeout(state.searchTimer);
     state.searchTimer = setTimeout(() => writeUrl(false), 180);
+    clearTimeout(state.analyticsSearchTimer);
+    if (state.query) state.analyticsSearchTimer = setTimeout(() => Analytics.trackSearch(state.query, state.visibleAssets.length), 550);
+    else Analytics.resetSearchDeduplication();
+  });
+  elements.search.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" || !state.query) return;
+    clearTimeout(state.analyticsSearchTimer);
+    Analytics.trackSearch(state.query, state.visibleAssets.length);
   });
   elements.searchClear.addEventListener("click", () => clearSearch(true));
   elements.filterToggle.addEventListener("click", () => setFilterOpen(elements.filterPanel.hidden));
   elements.filterClose.addEventListener("click", () => setFilterOpen(false));
   elements.filterReset.addEventListener("click", clearFilters);
-  [elements.filterDevice, elements.filterTheme, elements.filterColor].forEach((select) => select.addEventListener("change", () => {
+  [["device", elements.filterDevice], ["theme", elements.filterTheme], ["color", elements.filterColor]].forEach(([filterType, select]) => select.addEventListener("change", () => {
     playUiSound("filter");
     state.filters.device = elements.filterDevice.value;
     state.filters.theme = elements.filterTheme.value;
     state.filters.color = elements.filterColor.value;
+    Analytics.trackFilter(filterType, select.value, analyticsCategory());
     renderGallery(); writeUrl(false);
   }));
-  elements.filterTag.addEventListener("change", () => playUiSound("filter"));
+  elements.filterTag.addEventListener("change", () => {
+    playUiSound("filter");
+    if (state.filters.tag !== state.lastTrackedTagFilter) Analytics.trackFilter("tag", "", analyticsCategory());
+    state.lastTrackedTagFilter = state.filters.tag;
+  });
   elements.filterTag.addEventListener("input", () => { state.filters.tag = elements.filterTag.value.trim(); renderGallery(); writeUrl(false); });
   elements.retry.addEventListener("click", loadAssets);
   elements.emptyReset.addEventListener("click", () => { if (state.query || hasActiveFilter()) resetAllFilters(); else setView("all", true); });
@@ -195,6 +215,7 @@ async function loadAssets() {
     const normalized = normalizeAssets(raw);
     state.catalogAssets = normalized.assets;
     state.assets = [...state.catalogAssets];
+    document.documentElement.dataset.publishedAssetCount = String(state.catalogAssets.length);
     if (normalized.invalidCount) console.warn(`Ghostly Gallery skipped ${normalized.invalidCount} invalid asset entr${normalized.invalidCount === 1 ? "y" : "ies"}.`);
     await verifyDownloadFiles(state.assets);
     setLoadState("ready");
@@ -205,6 +226,7 @@ async function loadAssets() {
   } catch (error) {
     console.error("Ghostly Gallery could not load its collection:", error);
     state.assets = []; state.catalogAssets = [];
+    document.documentElement.dataset.publishedAssetCount = "0";
     setLoadState("error", error instanceof Error ? error.message : "The collection could not be loaded.");
   }
 }
@@ -432,6 +454,7 @@ function createDownload(asset, extraClass = "") {
   link.download = "";
   link.setAttribute("aria-label", `Download ${asset.title}`);
   link.addEventListener("click", () => {
+    Analytics.trackDownload(asset);
     playUiSound("download");
     state.activity.downloads += 1;
     if (state.profile) state.profile.stats.totalDownloads = state.activity.downloads;
@@ -465,6 +488,7 @@ function previewFallback() {
 function openAssetDetails(id, push = true) {
   const asset = state.assets.find((item) => item.id === id);
   if (!asset) return;
+  const openedNewDetails = !elements.assetDialog.open || state.openAssetId !== id;
   state.openAssetId = id;
   elements.assetContent.replaceChildren();
   const shell = el("div", "asset-detail-layout");
@@ -504,11 +528,19 @@ function openAssetDetails(id, push = true) {
   elements.assetContent.append(shell);
   if (!elements.assetDialog.open) { elements.assetDialog.showModal(); playUiSound("open"); }
   if (push) { writeUrl(true, id); state.assetHistoryPushed = true; }
+  if (openedNewDetails) {
+    Analytics.trackPageview({ view: state.view, assetId: id });
+    Analytics.trackWallpaperViewed(asset);
+    if (asset.collection || asset.collectionId || asset.package || asset.packageId) Analytics.trackCollectionViewed(asset);
+  }
 }
 
 function toggleFavorite(id) {
   const selected = state.favorites.has(id);
   if (selected) state.favorites.delete(id); else state.favorites.add(id);
+  const asset = state.assets.find((item) => item.id === id);
+  if (selected) Analytics.trackFavoriteRemoved(asset);
+  else Analytics.trackFavoriteAdded(asset);
   saveFavorites();
   renderGallery();
   if (state.profile) { state.profile.stats.totalFavorites = state.favorites.size; try { localStorage.setItem("ghostly_user_profile_v1", JSON.stringify(state.profile)); } catch {} }
@@ -518,6 +550,7 @@ function toggleFavorite(id) {
 }
 
 function categoryLabel(category) { return CATEGORIES[category]?.label || category.replace(/-/g, " "); }
+function analyticsCategory() { return CATEGORIES[state.view] ? state.view : state.view === "collections" ? "collections" : ""; }
 function clean(value) { return typeof value === "string" ? value.trim() : ""; }
 function cleanArray(value) { return Array.isArray(value) ? value.filter((item) => typeof item === "string").map((item) => item.trim()).filter(Boolean) : []; }
 function unique(values) { return [...new Set(values)]; }
@@ -550,19 +583,28 @@ function setView(view, push = true) {
   if (["dashboard", "background-remover"].includes(view)) requestAnimationFrame(() => document.querySelector(view === "dashboard" ? "#dashboard" : "#background-remover").scrollIntoView({ behavior: "smooth", block: "start" }));
   else if (view !== "recommended") requestAnimationFrame(() => document.querySelector("#collection").scrollIntoView({ behavior: "smooth", block: "start" }));
   if (push) writeUrl(true);
+  if (changed && push) {
+    Analytics.trackPageview({ view, assetId: "" });
+    if (CATEGORIES[view]) Analytics.trackFilter("category", view, view);
+    if (view === "collections") Analytics.trackCollectionViewed({ collectionId: "all-collections", collection: "Collections & packages" });
+  }
 }
 
 function clearSearch(focus = false) {
+  clearTimeout(state.analyticsSearchTimer);
   elements.search.value = "";
   elements.searchClear.hidden = true;
   state.query = "";
+  Analytics.resetSearchDeduplication();
   renderGallery();
   writeUrl(false);
   if (focus) elements.search.focus();
 }
 
 function clearFilters() {
+  if (hasActiveFilter()) Analytics.trackFilter("reset", "", analyticsCategory());
   state.filters = { device: "", theme: "", color: "", tag: "" };
+  state.lastTrackedTagFilter = "";
   syncFilterControls();
   renderGallery();
   writeUrl(false);
@@ -575,7 +617,8 @@ function renderFilterTokens() {
   const tokens = [];
   if (state.query) tokens.push([`Search: ${state.query}`, () => clearSearch()]);
   for (const [key, value] of Object.entries(state.filters)) if (value) tokens.push([`${key[0].toUpperCase()}${key.slice(1)}: ${value}`, () => {
-    state.filters[key] = ""; syncFilterControls(); renderGallery(); writeUrl(false);
+    Analytics.trackFilter(key, "", analyticsCategory());
+    state.filters[key] = ""; if (key === "tag") state.lastTrackedTagFilter = ""; syncFilterControls(); renderGallery(); writeUrl(false);
   }]);
   tokens.forEach(([label, clear]) => {
     const token = el("span", "filter-token", label);
@@ -812,7 +855,11 @@ function readUrlState() {
 }
 
 function syncFromUrl() {
+  const previousView = state.view;
   readUrlState();
+  state.lastTrackedTagFilter = state.filters.tag;
+  Analytics.trackPageview({ view: state.view, assetId: state.openAssetId || "" });
+  if (previousView !== state.view && state.view === "collections") Analytics.trackCollectionViewed({ collectionId: "all-collections", collection: "Collections & packages" });
   elements.sidebar.querySelectorAll(".nav-item[data-view]").forEach((button) => {
     const active = button.dataset.view === state.view;
     button.classList.toggle("is-active", active);
