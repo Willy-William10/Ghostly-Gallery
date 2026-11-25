@@ -45,7 +45,7 @@ With its distinctive ghost-inspired identity, modern interface, and carefully or
 * **Collections & Packages** — One gallery view for administrator-published catalog records that include a collection or package identifier. It uses the same gallery filters, cards, and contextual empty state as other tabs.
 * **Direct Downloads** — Download available published catalog assets directly in the browser.
 * **Local Profile & Recommendations** — Save interests in this browser and browse matching published assets.
-* **Workspace Dashboard** — See browser-local favourite, download-click, category-visit, and conversion counts. Open local image tools from the dashboard.
+* **Workspace Dashboard** — See browser-local favourite and download counts, published catalog totals, category activity, saved assets, and quick links. Edit or reset the profile and activity stored in this browser.
 * **Themes** — Choose from 60 curated palettes, including Catppuccin, Nord, One Dark, Dracula, Tokyo Night, Gruvbox, Solarized, Rosé Pine, Kanagawa, Everforest, GitHub, and other popular editor themes.
 
 ## 🎨 Explore Your Aesthetic

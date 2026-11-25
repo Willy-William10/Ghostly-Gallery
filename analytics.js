@@ -1,6 +1,6 @@
 const POSTHOG_PROJECT_KEY = "phc_uzHxsjwQzrovDkHkyD7uCb4mmUzzyTuLqn2kMNyNkoA6";
 const POSTHOG_API_HOST = "https://us.i.posthog.com";
-const SAFE_VIEWS = new Set(["all", "favorites", "background-remover", "recommended", "dashboard", "collections", "wallpapers", "phone-wallpapers", "cursors", "icons"]);
+const SAFE_VIEWS = new Set(["all", "favorites", "recommended", "dashboard", "collections", "wallpapers", "phone-wallpapers", "cursors", "icons"]);
 
 let initialized = false;
 let lastPageKey = "";

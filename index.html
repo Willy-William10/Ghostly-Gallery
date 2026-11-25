@@ -33,7 +33,7 @@
         <button class="nav-item" type="button" data-view="phone-wallpapers" data-label="Phone" aria-label="Phone wallpapers" style="--nav-accent:var(--phone)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.4"/><path d="M10 5h4M11 18.5h2"/></svg><span class="nav-label">Phone</span></button>
         <button class="nav-item" type="button" data-view="cursors" data-label="Cursors" aria-label="Cursor packs" style="--nav-accent:var(--cursor)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 13.5 10.5-6 .8-3.4 5.2L5 3Z"/><path d="m13 15 3.2 5"/></svg><span class="nav-label">Cursors</span></button>
         <button class="nav-item" type="button" data-view="icons" data-label="Icons" aria-label="Icon packs" style="--nav-accent:var(--icons)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span class="nav-label">Icons</span></button>
-        <button class="nav-item" type="button" data-view="collections" data-label="Collections & packages" aria-label="Collections and packages" style="--nav-accent:var(--accent)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="12" height="15" rx="2"/><path d="M7 9h5M7 12h5M7 15h3"/><path d="M9 3.5h10a2 2 0 0 1 2 2v11"/></svg><span class="nav-label">Collections &amp; packages</span></button>
+        <button class="nav-item" type="button" data-view="collections" data-label="Collections & packages" aria-label="Collections and packages" style="--nav-accent:var(--accent)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 9-4 9 4v10l-9 4-9-4V7Z"/><path d="m3 7 9 4 9-4M12 11v10M7.5 5 16.5 9"/></svg><span class="nav-label">Collections &amp; packages</span></button>
         <button class="nav-item" type="button" data-view="favorites" data-label="Favourites" aria-label="Favourites" style="--nav-accent:var(--favs)"><svg class="nav-icon nav-icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.6Z"/></svg><span class="nav-label">Favourites</span><span class="nav-count" id="favorite-count" hidden>0</span></button>
       </nav>
       <div class="sidebar-spacer"></div>
@@ -76,10 +76,14 @@
       <main id="main">
         <section class="welcome-strip" id="welcome-strip" hidden><div><p class="eyebrow">YOUR GHOSTLY WORKSPACE</p><h2 id="welcome-name"></h2><p id="welcome-note">A little corner for your next favourite.</p></div><button class="button-secondary" id="edit-profile" type="button">Edit preferences</button></section>
         <section class="dashboard-section" id="dashboard" hidden aria-labelledby="dashboard-title">
-          <div class="converter-heading"><p class="eyebrow">YOUR LOCAL WORKSPACE</p><h1 id="dashboard-title">Your dashboard<span>.</span></h1><p>Activity saved in this browser. It is not shared across visitors or devices.</p></div>
-          <div class="stats-grid"><article class="stat-card"><span>Download clicks</span><strong id="stat-downloads">0</strong><small>Started from this browser</small></article><article class="stat-card"><span>Favourites</span><strong id="stat-favorites">0</strong><small>Saved in your library</small></article><article class="stat-card"><span>Most explored</span><strong id="stat-category">—</strong><small>Based on local visits</small></article><article class="stat-card"><span>Conversions</span><strong id="stat-conversions">0</strong><small>Completed in this browser</small></article></div>
-          <div class="dashboard-bottom"><div><p class="eyebrow">YOUR INTERESTS</p><div class="profile-tags" id="profile-tags"></div></div><button class="converter-reset" id="reset-profile" type="button">Reset local profile and activity</button></div>
-          <section class="dashboard-workshop" aria-labelledby="workshop-title"><div><p class="eyebrow">LOCAL CREATIVE TOOLS</p><h2 id="workshop-title">The little workshop</h2><p>Choose an image utility. Your files stay in this browser.</p></div><div class="dashboard-workshop-actions"><button class="button-secondary" type="button" data-action="open-image-converter">Image converter <span aria-hidden="true">↗</span></button><button class="button-secondary" type="button" data-action="open-background-remover">Background remover <span aria-hidden="true">↗</span></button></div></section>
+          <div class="dashboard-heading"><div><p class="eyebrow">YOUR LOCAL WORKSPACE</p><h1 id="dashboard-title">Your dashboard<span>.</span></h1><p>Quick links and activity saved only in this browser.</p></div><button class="button-secondary" id="dashboard-edit-profile" type="button">Edit preferences</button></div>
+          <div class="stats-grid"><article class="stat-card"><span>Downloads</span><strong id="stat-downloads">0</strong><small>Started from this browser</small></article><article class="stat-card"><span>Favourites</span><strong id="stat-favorites">0</strong><small>Saved in your library</small></article><article class="stat-card"><span>Published assets</span><strong id="stat-published">0</strong><small>In the public Gallery</small></article><article class="stat-card"><span>Collections & packages</span><strong id="stat-collections">0</strong><small>Published in the Gallery</small></article><article class="stat-card"><span>Most explored</span><strong id="stat-category">—</strong><small>Based on local visits</small></article></div>
+          <div class="dashboard-panels">
+            <section class="dashboard-panel dashboard-shortcuts" aria-labelledby="shortcut-title"><div><p class="eyebrow">JUMP BACK IN</p><h2 id="shortcut-title">Quick links</h2></div><button class="dashboard-link" type="button" data-action="dashboard-browse"><span class="dashboard-link-icon">✦</span><span><strong>Browse the gallery</strong><small>Explore every published asset</small></span><span aria-hidden="true">↗</span></button><button class="dashboard-link" type="button" data-action="dashboard-favorites"><span class="dashboard-link-icon">♡</span><span><strong>Your favourites</strong><small id="shortcut-favorites">Saved just for you</small></span><span aria-hidden="true">↗</span></button><button class="dashboard-link" type="button" data-action="dashboard-collections"><span class="dashboard-link-icon">▣</span><span><strong>Collections & packages</strong><small>Browse curated sets</small></span><span aria-hidden="true">↗</span></button></section>
+            <section class="dashboard-panel dashboard-activity" aria-labelledby="activity-title"><div><p class="eyebrow">YOUR BROWSING</p><h2 id="activity-title">Category activity</h2></div><div class="dashboard-bars" id="dashboard-bars"></div><p class="dashboard-empty-note" id="dashboard-bars-empty" hidden>Choose a category to start building your activity summary.</p></section>
+          </div>
+          <div class="dashboard-bottom"><div><p class="eyebrow">YOUR INTERESTS</p><div class="profile-tags" id="profile-tags"></div></div><button class="dashboard-reset" id="reset-profile" type="button">Reset browser profile and activity</button></div>
+          <section class="dashboard-panel dashboard-saved" aria-labelledby="saved-title"><div class="dashboard-panel-heading"><div><p class="eyebrow">KEPT CLOSE</p><h2 id="saved-title">Recently saved</h2></div><button class="text-link" type="button" data-action="dashboard-favorites">See all favourites <span aria-hidden="true">↗</span></button></div><div class="dashboard-saved-grid" id="dashboard-saved-grid"></div></section>
         </section>
         <section class="hero" id="home" aria-labelledby="hero-title">
           <div class="hero-copy">
@@ -110,40 +114,6 @@
           <div class="loading-state" id="loading-state"><span class="loading-moon" aria-hidden="true"></span><span>Gathering the collection...</span></div>
         </section>
 
-        <section class="converter-section" id="converters" aria-labelledby="converter-title" hidden>
-          <div class="converter-heading"><p class="eyebrow">LOCAL IMAGE WORKSHOP</p><h1 id="converter-title">Image converter<span>.</span></h1><p>Change image formats right here in your browser. Your files stay on this device.</p><button class="button-secondary tool-back" type="button" data-action="tools-home">← Back to tools</button></div>
-          <div class="converter-panel">
-            <label class="converter-drop" id="converter-drop" for="converter-file"><span class="converter-upload-icon" aria-hidden="true">↑</span><strong>Choose an image to convert</strong><span>PNG, GIF, JPG, JPEG, or SVG · up to 25 MB</span><input id="converter-file" type="file" accept=".png,.gif,.jpg,.jpeg,.svg,image/png,image/gif,image/jpeg,image/svg+xml"></label>
-            <div class="converter-workspace" id="converter-workspace" hidden>
-              <div class="converter-preview"><img id="converter-preview" alt="Preview of the selected image"><span id="converter-source-label"></span></div>
-              <div class="converter-options">
-                <div><p class="eyebrow">SOURCE FILE</p><strong class="converter-filename" id="converter-filename"></strong><p class="converter-message" id="converter-message" aria-live="polite"></p></div>
-                <label class="converter-field">Convert to<select id="converter-format"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="ico">ICO (256 × 256)</option><option value="svg">SVG (embedded image)</option></select></label>
-                <label class="converter-field" id="jpeg-background-field" hidden>JPEG background<input id="jpeg-background" type="color" value="#ffffff"><small>Transparent areas use this color. White is the default.</small></label>
-                <button class="button-primary converter-action" id="converter-button" type="button" disabled>Convert image <span aria-hidden="true">↗</span></button>
-                <a class="button-secondary converter-download" id="converter-download" hidden download>Download converted image</a>
-                <button class="converter-reset" id="converter-reset" type="button">Choose another image</button>
-              </div>
-            </div>
-          </div>
-          <p class="converter-footnote">SVG files are checked for active and external content before preview or conversion. SVG output wraps the converted image; it does not trace pixels into vector shapes. ICO output embeds a PNG image at 256 × 256. GIF conversion uses a still frame.</p>
-          <article class="media-converter-card" aria-labelledby="mp3-title">
-            <div class="media-converter-heading"><span class="media-converter-icon" aria-hidden="true">♫</span><div><p class="eyebrow">AUDIO TOOL</p><h2 id="mp3-title">MP4 <span>→</span> MP3</h2><p>Extract audio from an MP4 video in your browser.</p></div></div>
-            <label class="media-file-picker" for="mp4-file"><span>Choose an MP4 video</span><small id="mp4-file-name">MP4 only · up to 200 MB</small><input id="mp4-file" type="file" accept=".mp4,video/mp4"></label>
-            <div class="media-converter-actions"><button class="button-primary" id="mp4-convert" type="button" disabled>Convert to MP3 <span aria-hidden="true">↗</span></button><a class="button-secondary media-download" id="mp3-download" hidden download>Download MP3</a></div>
-            <p class="media-converter-status" id="mp4-status" role="status" aria-live="polite">Your video stays on this device. The first conversion loads the audio engine on demand (about 31 MB).</p>
-          </article>
-        </section>
-        <section class="background-remover-section" id="background-remover" aria-labelledby="bg-title" hidden>
-          <div class="converter-heading"><p class="eyebrow">LOCAL IMAGE WORKSHOP</p><h1 id="bg-title">Tools<span>.</span></h1><p>Choose a local image or open the converter. Files stay on this device.</p><button class="button-secondary tool-open-converter" type="button" data-action="open-converter">Open image converter <span aria-hidden="true">↗</span></button></div>
-          <div class="converter-panel bg-remover-panel">
-            <label class="converter-drop" id="bg-drop" for="bg-file"><span class="converter-upload-icon" aria-hidden="true">✧</span><strong>Choose an image</strong><span>PNG, JPG, or WebP · up to 20 MB</span><input id="bg-file" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"></label>
-            <div class="bg-workspace" id="bg-workspace" hidden>
-              <div class="bg-preview"><img id="bg-preview" alt="Selected image preview"><span>Preview · original background</span></div>
-              <div class="bg-file-info"><p class="eyebrow">SELECTED IMAGE</p><strong id="bg-filename"></strong><p id="bg-file-meta"></p><div class="bg-engine-note"><strong>Removal engine unavailable</strong><p>This site has no background-removal model installed. The image stays local, and no transparent result will be fabricated.</p></div><button class="converter-reset" id="bg-reset" type="button">Remove image</button></div>
-            </div>
-          </div>
-        </section>
         <footer class="site-footer"><span>Quietly curated for curious screens.</span><span>Favourites stay in this browser.</span></footer>
       </main>
     </div>

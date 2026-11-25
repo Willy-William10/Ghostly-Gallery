@@ -1,5 +1,4 @@
 import { playUiSound, setSoundEffectsEnabled, soundEffectsEnabled } from "./sounds.js";
-import { initConverters, initBackgroundRemover } from "./converters.js";
 import { THEMES, THEME_BY_ID, THEME_ALIASES } from "./themes.js";
 import { Analytics } from "./analytics.js";
 
@@ -27,7 +26,7 @@ const elements = {
 const state = {
   assets: [], catalogAssets: [], visibleAssets: [], favorites: readFavorites(), view: "all", query: "", sort: "newest",
   filters: { device: "", theme: "", color: "", tag: "" }, loadState: "loading", openAssetId: null,
-  searchTimer: null, analyticsSearchTimer: null, toastTimer: null, lastTrackedTagFilter: "", sidebarOpen: false, sidebarCollapsed: readSidebarCollapsed(), toolPane: "background-remover", assetHistoryPushed: false, mediaMobile: matchMedia("(max-width: 820px)"),
+  searchTimer: null, analyticsSearchTimer: null, toastTimer: null, lastTrackedTagFilter: "", sidebarOpen: false, sidebarCollapsed: readSidebarCollapsed(), assetHistoryPushed: false, mediaMobile: matchMedia("(max-width: 820px)"),
   profile: readProfile(), activity: readActivity()
 };
 
@@ -35,12 +34,13 @@ window.GhostlyGalleryPublicMetrics = Object.freeze({ getPublishedAssetCount: Ana
 document.documentElement.dataset.publishedAssetCount = "0";
 
 function readProfile() { try { const value = JSON.parse(localStorage.getItem("ghostly_user_profile_v1") || "null"); return value?.hasCompletedOnboarding ? value : null; } catch { return null; } }
-function readActivity() { try { const value = JSON.parse(localStorage.getItem("ghostly.activity.v1") || "{}"); return { downloads: Math.max(0, Number(value.downloads) || 0), conversions: Math.max(0, Number(value.conversions) || 0), visits: value.visits && typeof value.visits === "object" ? value.visits : {} }; } catch { return { downloads: 0, conversions: 0, visits: {} }; } }
+function readActivity() { try { const value = JSON.parse(localStorage.getItem("ghostly.activity.v1") || "{}"); return { downloads: Math.max(0, Number(value.downloads) || 0), visits: value.visits && typeof value.visits === "object" ? value.visits : {} }; } catch { return { downloads: 0, visits: {} }; } }
 function saveActivity() {
   try { localStorage.setItem("ghostly.activity.v1", JSON.stringify(state.activity)); } catch { showToast("Activity is available for this visit only."); }
   if (state.profile) {
     state.profile.stats ||= {};
-    Object.assign(state.profile.stats, { totalDownloads: state.activity.downloads, totalFavorites: state.favorites.size, totalConversions: state.activity.conversions, categoryVisits: { ...state.activity.visits } });
+    delete state.profile.stats.totalConversions;
+    Object.assign(state.profile.stats, { totalDownloads: state.activity.downloads, totalFavorites: state.favorites.size, categoryVisits: { ...state.activity.visits } });
     try { localStorage.setItem("ghostly_user_profile_v1", JSON.stringify(state.profile)); } catch {}
   }
   updateDashboard();
@@ -69,11 +69,9 @@ if (state.profile) {
   if (params.has("view") || params.has("category")) setView(state.view, false);
   else { setView("recommended", false); writeUrl(false); }
 } else { elements.onboarding.showModal(); }
-initBackgroundRemover();
-initConverters();
 renderThemeOptions();
 renderSortOptions();
-if (["background-remover", "dashboard", "collections"].includes(state.view) || CATEGORIES[state.view]) setView(state.view, false);
+if (["dashboard", "collections"].includes(state.view) || CATEGORIES[state.view]) setView(state.view, false);
 applySidebarLayout();
 Analytics.trackPageview({ view: state.view, assetId: state.openAssetId || "" });
 if (state.view === "collections") Analytics.trackCollectionViewed({ collectionId: "all-collections", collection: "Collections & packages" });
@@ -100,10 +98,9 @@ function bindEvents() {
   });
   elements.sortTrigger.addEventListener("click", () => setSortOpen(elements.sortMenu.hidden));
   elements.sortMenu.addEventListener("click", (event) => { const option = event.target.closest("[data-sort-option]"); if (!option) return; state.sort = option.dataset.sortOption; playUiSound("sort"); renderSortOptions(); renderGallery(); writeUrl(false); setSortOpen(false); elements.sortTrigger.focus(); });
-  document.querySelector('[data-action="open-converter"]').addEventListener("click", () => { state.toolPane = "converter"; syncViewPanels(); document.querySelector("#converter-title").scrollIntoView({ behavior: "smooth", block: "start" }); });
-  document.querySelector('[data-action="tools-home"]').addEventListener("click", () => { state.toolPane = "background-remover"; syncViewPanels(); document.querySelector("#bg-title").scrollIntoView({ behavior: "smooth", block: "start" }); });
-  document.querySelector('[data-action="open-image-converter"]').addEventListener("click", () => { setView("background-remover", true); state.toolPane = "converter"; syncViewPanels(); document.querySelector("#converter-title").scrollIntoView({ behavior: "smooth", block: "start" }); });
-  document.querySelector('[data-action="open-background-remover"]').addEventListener("click", () => { setView("background-remover", true); document.querySelector("#bg-title").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  document.querySelectorAll('[data-action="dashboard-browse"]').forEach((button) => button.addEventListener("click", () => setView("all", true)));
+  document.querySelectorAll('[data-action="dashboard-favorites"]').forEach((button) => button.addEventListener("click", () => setView("favorites", true)));
+  document.querySelectorAll('[data-action="dashboard-collections"]').forEach((button) => button.addEventListener("click", () => setView("collections", true)));
   elements.sidebar.querySelectorAll(".nav-item[data-view]").forEach((button) => button.addEventListener("click", () => setView(button.dataset.view, true)));
   document.querySelectorAll('[data-action="all-assets"]').forEach((button) => button.addEventListener("click", (event) => {
     event.preventDefault(); setView("all", true); document.querySelector("#collection").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -151,8 +148,8 @@ function bindEvents() {
     if (enabled) playUiSound("toggle");
   });
   elements.onboardingForm.addEventListener("submit", saveProfileFromForm);
-  document.addEventListener("ghostly:conversion-complete", () => { state.activity.conversions += 1; saveActivity(); playUiSound("success"); });
   document.querySelector("#edit-profile").addEventListener("click", () => openProfileEditor());
+  document.querySelector("#dashboard-edit-profile").addEventListener("click", () => openProfileEditor());
   document.querySelector("#reset-profile").addEventListener("click", resetLocalProfile);
   syncSoundToggle();
   document.addEventListener("click", handleDocumentClick);
@@ -189,7 +186,7 @@ function handleDocumentClick(event) {
 }
 
 function handleKeydown(event) {
-  if (event.key === "/" && !isTypingTarget(event.target) && !elements.assetDialog.open && !elements.app.classList.contains("is-tool-view")) { event.preventDefault(); elements.search.focus(); }
+  if (event.key === "/" && !isTypingTarget(event.target) && !elements.assetDialog.open && !elements.app.classList.contains("is-dashboard-view")) { event.preventDefault(); elements.search.focus(); }
   if (event.key === "Escape") { if (elements.onboarding.open) { event.preventDefault(); return; } setFilterOpen(false); if (!elements.sortMenu.hidden) { setSortOpen(false); elements.sortTrigger.focus(); } setSidebarOpen(false); if (elements.assetDialog.open) elements.assetDialog.close(); }
   if (!elements.sortMenu.hidden && ["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
     const options = [...elements.sortMenu.querySelectorAll("[role=option]")];
@@ -369,6 +366,15 @@ function isCollectionPackageAsset(asset) {
   return Boolean(asset.collection || asset.collectionId || asset.package || asset.packageId);
 }
 
+function getCollectionPackageCount(assets) {
+  const groups = new Set();
+  for (const asset of assets) {
+    if (asset.collectionId || asset.collection) groups.add(`collection:${asset.collectionId || asset.collection.toLocaleLowerCase()}`);
+    if (asset.packageId || asset.package) groups.add(`package:${asset.packageId || asset.package.toLocaleLowerCase()}`);
+  }
+  return groups.size;
+}
+
 
 function recommendationScore(asset) {
   if (!state.profile) return 0;
@@ -389,7 +395,7 @@ function sortAssets(assets, sort) {
   return result.sort((a, b) => dateValue(b.createdAt) - dateValue(a.createdAt));
 }
 function dateValue(value) { const date = Date.parse(value); return Number.isFinite(date) ? date : 0; }
-function viewLabel(view) { return view === "all" ? "All assets" : view === "favorites" ? "Favourites" : view === "background-remover" ? "Workshop" : view === "recommended" ? "For you" : view === "dashboard" ? "Activity" : view === "collections" || view === "packages" ? "Collections & packages" : CATEGORIES[view]?.label || "Collection"; }
+function viewLabel(view) { return view === "all" ? "All assets" : view === "favorites" ? "Favourites" : view === "recommended" ? "For you" : view === "dashboard" ? "Activity" : view === "collections" || view === "packages" ? "Collections & packages" : CATEGORIES[view]?.label || "Collection"; }
 function updateCollectionHeading() {
   const active = viewLabel(state.view);
   elements.collectionTitle.textContent = state.view === "all" ? "A strange little library." : `${active}.`;
@@ -561,10 +567,9 @@ function resetAllFilters() { state.view = "all"; state.query = ""; state.filters
 
 function setView(view, push = true) {
   if (view === "packages") view = "collections";
-  if (!( ["all", "favorites", "background-remover", "recommended", "dashboard", "collections"].includes(view) || CATEGORIES[view])) return;
+  if (!( ["all", "favorites", "recommended", "dashboard", "collections"].includes(view) || CATEGORIES[view])) return;
   const changed = state.view !== view;
   state.view = view;
-  if (changed) state.toolPane = "background-remover";
   if (changed && state.profile && CATEGORIES[view]) { state.activity.visits[view] = (Number(state.activity.visits[view]) || 0) + 1; saveActivity(); }
   elements.sidebar.querySelectorAll(".nav-item[data-view]").forEach((button) => {
     const active = button.dataset.view === view;
@@ -576,11 +581,11 @@ function setView(view, push = true) {
   if (state.mediaMobile.matches) setSidebarOpen(false);
   if (changed) {
     playUiSound("navigation");
-    const panel = view === "dashboard" ? elements.dashboard : view === "background-remover" ? document.querySelector("#background-remover") : document.querySelector("#collection");
+    const panel = view === "dashboard" ? elements.dashboard : document.querySelector("#collection");
     panel.classList.remove("view-enter"); void panel.offsetWidth; panel.classList.add("view-enter");
     setTimeout(() => panel.classList.remove("view-enter"), 500);
   }
-  if (["dashboard", "background-remover"].includes(view)) requestAnimationFrame(() => document.querySelector(view === "dashboard" ? "#dashboard" : "#background-remover").scrollIntoView({ behavior: "smooth", block: "start" }));
+  if (view === "dashboard") requestAnimationFrame(() => document.querySelector("#dashboard").scrollIntoView({ behavior: "smooth", block: "start" }));
   else if (view !== "recommended") requestAnimationFrame(() => document.querySelector("#collection").scrollIntoView({ behavior: "smooth", block: "start" }));
   if (push) writeUrl(true);
   if (changed && push) {
@@ -628,16 +633,13 @@ function renderFilterTokens() {
 }
 
 function syncViewPanels() {
-  const toolView = state.view === "background-remover";
   const separateView = state.view === "dashboard";
-  elements.app.classList.toggle("is-tool-view", toolView || state.view === "dashboard");
+  elements.app.classList.toggle("is-dashboard-view", separateView);
   document.querySelector("#home").hidden = state.view !== "all";
-  elements.welcomeStrip.hidden = !state.profile || state.view === "dashboard" || toolView || separateView;
-  document.querySelector("#collection").hidden = toolView || separateView;
+  elements.welcomeStrip.hidden = !state.profile || separateView;
+  document.querySelector("#collection").hidden = separateView;
   elements.dashboard.hidden = state.view !== "dashboard";
-  document.querySelector("#background-remover").hidden = !toolView || state.toolPane === "converter";
-  document.querySelector("#converters").hidden = !toolView || state.toolPane !== "converter";
-  elements.breadcrumb.textContent = toolView || separateView ? viewLabel(state.view) : state.view === "all" ? "The Gallery" : viewLabel(state.view);
+  elements.breadcrumb.textContent = separateView ? viewLabel(state.view) : state.view === "all" ? "The Gallery" : viewLabel(state.view);
 }
 
 function syncFilterControls() {
@@ -751,7 +753,8 @@ function saveProfileFromForm(event) {
   const form = new FormData(elements.onboardingForm);
   const now = Date.now();
   const previous = state.profile;
-  state.profile = { id: previous?.id || crypto.randomUUID(), username: name, interests: form.getAll("interest"), preferredAssetTypes: form.getAll("assetType"), vibe: form.get("vibe"), avatarSeed: name.toLowerCase().replace(/\s+/g, "-"), stats: previous?.stats || { totalDownloads: state.activity.downloads, totalFavorites: state.favorites.size, totalConversions: state.activity.conversions, categoryVisits: {}, styleInteractions: {}, registeredTimestamp: now }, themePreference: document.documentElement.dataset.theme, hasCompletedOnboarding: true };
+  state.profile = { id: previous?.id || crypto.randomUUID(), username: name, interests: form.getAll("interest"), preferredAssetTypes: form.getAll("assetType"), vibe: form.get("vibe"), avatarSeed: name.toLowerCase().replace(/\s+/g, "-"), stats: previous?.stats || { totalDownloads: state.activity.downloads, totalFavorites: state.favorites.size, categoryVisits: {}, styleInteractions: {}, registeredTimestamp: now }, themePreference: document.documentElement.dataset.theme, hasCompletedOnboarding: true };
+  delete state.profile.stats.totalConversions;
   state.profile.stats.totalFavorites = state.favorites.size;
   try { localStorage.setItem("ghostly_user_profile_v1", JSON.stringify(state.profile)); } catch { showToast("Profile is available for this visit only."); }
   showProfile();
@@ -793,16 +796,44 @@ function updateDashboard() {
   if (!state.profile) return;
   document.querySelector("#stat-downloads").textContent = String(state.activity.downloads);
   document.querySelector("#stat-favorites").textContent = String(state.favorites.size);
-  document.querySelector("#stat-conversions").textContent = String(state.activity.conversions);
+  document.querySelector("#stat-published").textContent = String(state.catalogAssets.length);
+  document.querySelector("#stat-collections").textContent = String(getCollectionPackageCount(state.catalogAssets));
   const top = Object.entries(state.activity.visits).sort((a, b) => b[1] - a[1])[0];
   document.querySelector("#stat-category").textContent = top ? viewLabel(top[0]) : "—";
+  document.querySelector("#shortcut-favorites").textContent = state.favorites.size ? `${state.favorites.size} saved ${state.favorites.size === 1 ? "asset" : "assets"}` : "Your saved assets live here";
   const tags = document.querySelector("#profile-tags");
   tags.replaceChildren(...(state.profile.interests || []).map((value) => el("span", "meta-pill", value.replace(/-/g, " "))));
+  const visitEntries = Object.entries(state.activity.visits).filter(([key, value]) => CATEGORIES[key] && Number(value) > 0).sort((a, b) => b[1] - a[1]).slice(0, 4);
+  const bars = document.querySelector("#dashboard-bars");
+  const noBars = document.querySelector("#dashboard-bars-empty");
+  noBars.hidden = visitEntries.length > 0;
+  bars.replaceChildren(...visitEntries.map(([key, count]) => {
+    const row = el("div", "activity-row");
+    const label = el("div", "activity-row-label"); label.append(el("span", "", viewLabel(key)), el("strong", "", String(count)));
+    const track = el("div", "activity-track"); const fill = el("span", "activity-fill");
+    fill.style.width = `${Math.max(8, Math.round(Number(count) / Math.max(1, visitEntries[0][1]) * 100))}%`; track.append(fill);
+    row.append(label, track); return row;
+  }));
+  const savedGrid = document.querySelector("#dashboard-saved-grid");
+  const saved = state.assets.filter((asset) => state.favorites.has(asset.id)).slice(0, 4);
+  if (!saved.length) {
+    const empty = el("div", "dashboard-saved-empty");
+    empty.append(el("span", "dashboard-saved-empty-icon", "♡"), el("strong", "", "Your saved gallery starts here"), el("p", "", "Tap the heart on anything you love, and it will be waiting here."));
+    const browse = el("button", "button-secondary", "Explore assets ↗"); browse.type = "button"; browse.addEventListener("click", () => setView("all", true)); empty.append(browse);
+    savedGrid.replaceChildren(empty);
+  } else {
+    savedGrid.replaceChildren(...saved.map((asset) => {
+      const card = el("button", "dashboard-saved-card"); card.type = "button"; card.addEventListener("click", () => openAssetDetails(asset.id));
+      const preview = createPreview(asset); if (preview) card.append(preview);
+      const copy = el("span", "dashboard-saved-copy"); copy.append(el("strong", "", asset.title), el("small", "", categoryLabel(asset.category)));
+      card.append(copy); return card;
+    }));
+  }
 }
 
 function resetLocalProfile() {
   try { localStorage.removeItem("ghostly_user_profile_v1"); localStorage.removeItem("ghostly.activity.v1"); localStorage.removeItem("ghostly.favorites.guest.v1"); } catch {}
-  state.profile = null; state.activity = { downloads: 0, conversions: 0, visits: {} }; state.favorites.clear();
+  state.profile = null; state.activity = { downloads: 0, visits: {} }; state.favorites.clear();
   elements.profileName.value = "";
   document.querySelectorAll('[name="interest"], [name="assetType"]').forEach((input) => { input.checked = false; });
   document.querySelector("#onboarding-title").textContent = "Welcome to Ghostly Gallery";
@@ -839,8 +870,7 @@ function writeUrl(push, assetId = null) {
 function readUrlState() {
   const params = new URL(location.href).searchParams;
   const rawView = params.get("view") || params.get("category") || "all";
-  state.view = rawView === "converters" ? "all" : rawView === "packages" ? "collections" : (["all", "favorites", "background-remover", "recommended", "dashboard", "collections"].includes(rawView) || CATEGORIES[rawView] ? rawView : "all");
-  state.toolPane = "background-remover";
+  state.view = ["converters", "background-remover"].includes(rawView) ? "all" : rawView === "packages" ? "collections" : (["all", "favorites", "recommended", "dashboard", "collections"].includes(rawView) || CATEGORIES[rawView] ? rawView : "all");
   state.query = params.get("q") || "";
   const sort = params.get("sort") || "newest";
   state.sort = ["newest", "oldest", "title", "title-desc"].includes(sort) ? sort : "newest";
