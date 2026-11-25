@@ -1,8 +1,5 @@
-const POSTHOG_PROJECT_KEY = "phc_uzHxsjwQzrovDkHkyD7uCb4mmUzzyTuLqn2kMNyNkoA6";
-const POSTHOG_API_HOST = "https://us.i.posthog.com";
 const SAFE_VIEWS = new Set(["all", "favorites", "recommended", "dashboard", "collections", "wallpapers", "phone-wallpapers", "cursors", "icons"]);
 
-let initialized = false;
 let lastPageKey = "";
 let lastSearchSignature = "";
 let activeSegmentStartedAt = document.visibilityState === "hidden" ? null : performance.now();
@@ -22,19 +19,6 @@ function safePagePath(view = "all", assetId = "") {
   return `${location.pathname}${query ? `?${query}` : ""}`;
 }
 
-function sanitizeEvent(event) {
-  if (!event || !event.properties || typeof event.properties !== "object") return event;
-  const sanitized = { ...event, properties: { ...event.properties } };
-  const properties = sanitized.properties;
-  for (const key of Object.keys(properties)) {
-    if (/url|referrer|^\$search$/i.test(key)) delete properties[key];
-  }
-  const pagePath = typeof properties.page_path === "string" && properties.page_path.startsWith("/") ? properties.page_path : safePagePathFromLocation();
-  properties.$current_url = `${location.origin}${pagePath}`;
-  properties.$pathname = pagePath.split("?", 1)[0];
-  return sanitized;
-}
-
 function safePagePathFromLocation() {
   const params = new URLSearchParams(location.search);
   const view = params.get("view") || params.get("category") || "all";
@@ -47,36 +31,13 @@ function capture(eventName, properties = {}, options) {
     if (navigator.doNotTrack === "1" || navigator.msDoNotTrack === "1" || window.doNotTrack === "1") return;
     const sdk = posthog();
     if (!sdk) return;
-    const cleanProperties = Object.fromEntries(Object.entries(properties).filter(([, value]) => value !== undefined && value !== null));
+    const cleanProperties = Object.fromEntries(Object.entries(properties).filter(([key, value]) => value !== undefined && value !== null && !/url|referrer|^\$search$/i.test(key)));
+    const pagePath = typeof cleanProperties.page_path === "string" && cleanProperties.page_path.startsWith("/") ? cleanProperties.page_path : safePagePathFromLocation();
+    cleanProperties.$current_url = `${location.origin}${pagePath}`;
+    cleanProperties.$pathname = pagePath.split("?", 1)[0];
     sdk.capture(eventName, cleanProperties, options);
   } catch {
     // Analytics is optional; never interrupt gallery behavior.
-  }
-}
-
-function initialize() {
-  if (initialized || window.__ghostlyPostHogInitialized) return;
-  initialized = true;
-  window.__ghostlyPostHogInitialized = true;
-  try {
-    if (!window.posthog || typeof window.posthog.init !== "function") return;
-    window.posthog.init(POSTHOG_PROJECT_KEY, {
-      api_host: POSTHOG_API_HOST,
-      defaults: "2026-08-30",
-      autocapture: false,
-      capture_pageview: false,
-      capture_pageleave: false,
-      capture_performance: false,
-      capture_exceptions: false,
-      disable_session_recording: true,
-      respect_dnt: true,
-      before_send: sanitizeEvent
-    });
-    document.querySelector('script[src*="/static/array.js"]')?.addEventListener("error", () => {
-      window.__ghostlyPostHogFailed = true;
-    }, { once: true });
-  } catch {
-    window.__ghostlyPostHogFailed = true;
   }
 }
 
@@ -192,7 +153,9 @@ document.addEventListener("visibilitychange", () => {
 window.addEventListener("pagehide", flushVisitDuration);
 window.addEventListener("pageshow", startForegroundSegment);
 
-initialize();
+document.querySelector('script[src*="/static/array.js"]')?.addEventListener("error", () => {
+  window.__ghostlyPostHogFailed = true;
+}, { once: true });
 
 export const Analytics = Object.freeze({
   trackPageview,

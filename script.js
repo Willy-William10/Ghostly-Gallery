@@ -1,6 +1,6 @@
 import { playUiSound, setSoundEffectsEnabled, soundEffectsEnabled } from "./sounds.js";
 import { THEMES, THEME_BY_ID, THEME_ALIASES } from "./themes.js";
-import { Analytics } from "./analytics.js";
+import { Analytics } from "./analytics.js?v=gg2-analytics-2";
 
 const CATEGORIES = {
   wallpapers: { label: "Desktop", accent: "var(--wall)" },
