@@ -351,5 +351,35 @@
       "White",
       "Peach"
     ]
+  },
+  {
+    "id": "e33f8299-4f2a-4c2f-9cd2-46d15ee84019",
+    "title": "Arch-window",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Operating System",
+    "aesthetic": "Operating System",
+    "style": "Minimal",
+    "file": "assets/wallpapers/arch-window-e33f8299.jpg",
+    "preview": "assets/wallpapers/arch-window-e33f8299.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T21:25:35.2271216\u002B00:00",
+    "size": "51 KB",
+    "tags": [
+      "arch linux",
+      "linux",
+      "windows",
+      "logo",
+      "tech"
+    ],
+    "colors": [
+      "Navy Blue",
+      "Electric Blue",
+      "Cyan",
+      "Black"
+    ]
   }
 ]
