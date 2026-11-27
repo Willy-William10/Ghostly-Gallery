@@ -233,5 +233,32 @@
       "Orange",
       "Yellow"
     ]
+  },
+  {
+    "id": "5d4ebd1e-34e5-45f5-81ad-3de4fe31439d",
+    "title": "Akira",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Anime",
+    "aesthetic": "Anime",
+    "style": "Anime",
+    "file": "assets/wallpapers/akira-5d4ebd1e.png",
+    "preview": "assets/wallpapers/akira-5d4ebd1e.png",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T20:58:54.3453213\u002B00:00",
+    "size": "1 MB",
+    "tags": [
+      "anime",
+      "school"
+    ],
+    "colors": [
+      "Black",
+      "White",
+      "Cyan",
+      "Green"
+    ]
   }
 ]
