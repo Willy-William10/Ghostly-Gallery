@@ -260,5 +260,35 @@
       "Cyan",
       "Green"
     ]
+  },
+  {
+    "id": "21374841-0956-4177-91d9-802ebefe0fd2",
+    "title": "anime",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Dark",
+    "aesthetic": "Dark",
+    "style": "Painterly",
+    "file": "assets/wallpapers/anime-21374841.png",
+    "preview": "assets/wallpapers/anime-21374841.png",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T21:01:09.9202106\u002B00:00",
+    "size": "10 MB",
+    "tags": [
+      "landscape",
+      "mountains",
+      "mist",
+      "fantasy",
+      "silhouette"
+    ],
+    "colors": [
+      "Blue",
+      "Teal",
+      "Charcoal",
+      "Black"
+    ]
   }
 ]
