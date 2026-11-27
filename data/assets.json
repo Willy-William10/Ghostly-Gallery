@@ -176,5 +176,34 @@
       "Blue",
       "Black"
     ]
+  },
+  {
+    "id": "3539b46b-a205-497e-a6f9-1d80c67455b4",
+    "title": "Bob-Cut",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Cute",
+    "aesthetic": "Cute",
+    "style": "Illustration, Retro, Minimal",
+    "file": "assets/wallpapers/bob-cut-3539b46b.jpg",
+    "preview": "assets/wallpapers/bob-cut-3539b46b.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T20:38:55.8466357\u002B00:00",
+    "size": "45 KB",
+    "tags": [
+      "girl",
+      "portrait",
+      "monochrome",
+      "vintage",
+      "glitch"
+    ],
+    "colors": [
+      "Black",
+      "Brown",
+      "White"
+    ]
   }
 ]
