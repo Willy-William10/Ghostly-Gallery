@@ -148,5 +148,33 @@
       "Yellow",
       "Brown"
     ]
+  },
+  {
+    "id": "6c83db0b-9f68-464d-a3ab-01b9eeb7f4c3",
+    "title": "Blue-Pole",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Minimal",
+    "aesthetic": "Minimal",
+    "style": "Photography, Minimal, Cinematic",
+    "file": "assets/wallpapers/blue-pole-6c83db0b.png",
+    "preview": "assets/wallpapers/blue-pole-6c83db0b.png",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T20:36:25.6278362\u002B00:00",
+    "size": "850 KB",
+    "tags": [
+      "sky",
+      "moon",
+      "night",
+      "city",
+      "twilight"
+    ],
+    "colors": [
+      "Blue",
+      "Black"
+    ]
   }
 ]
