@@ -24,5 +24,41 @@
       "Black",
       "White"
     ]
+  },
+  {
+    "id": "69d328fc-ae66-44df-9416-e38a31cc9d02",
+    "title": "Angel",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Dark, Fantasy, Gothic",
+    "aesthetic": "Dark, Fantasy, Gothic",
+    "style": "Illustration, Painterly, Cinematic",
+    "file": "assets/wallpapers/angel-69d328fc.jpg",
+    "preview": "assets/wallpapers/angel-69d328fc.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T14:46:50.3250698\u002B00:00",
+    "size": "230 KB",
+    "tags": [
+      "angel",
+      "statue",
+      "wings",
+      "halo",
+      "cemetery",
+      "graveyard",
+      "fog",
+      "mist",
+      "dark",
+      "gothic",
+      "gloomy",
+      "monochrome"
+    ],
+    "colors": [
+      "Black",
+      "Gray",
+      "White"
+    ]
   }
 ]
