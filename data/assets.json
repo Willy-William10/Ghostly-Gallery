@@ -437,5 +437,31 @@
       "Green",
       "Red"
     ]
+  },
+  {
+    "id": "74bac5f3-de44-4df3-bc65-763dade377e4",
+    "title": "flower_desaturated",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Nature",
+    "aesthetic": "Nature",
+    "style": "Minimal",
+    "file": "assets/wallpapers/flower-desaturated-74bac5f3.jpg",
+    "preview": "assets/wallpapers/flower-desaturated-74bac5f3.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T22:15:53.7542215\u002B00:00",
+    "size": "4.7 MB",
+    "tags": [
+      "Nature",
+      "Flowers",
+      "Minimal"
+    ],
+    "colors": [
+      "Yellow",
+      "Green"
+    ]
   }
 ]
