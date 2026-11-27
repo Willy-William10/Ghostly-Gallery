@@ -147,5 +147,35 @@
     "size": "850 KB",
     "tags": [],
     "colors": []
+  },
+  {
+    "id": "9c07f988-ef70-4b06-8b75-f80d0923dcac",
+    "title": "Batman-Robin",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Lego",
+    "aesthetic": "Lego",
+    "style": "3D",
+    "file": "assets/wallpapers/batman-robin-9c07f988.jpg",
+    "preview": "assets/wallpapers/batman-robin-9c07f988.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T14:58:07.6130315\u002B00:00",
+    "size": "150 KB",
+    "tags": [
+      "batman",
+      "robin",
+      "lego",
+      "superhero",
+      "city"
+    ],
+    "colors": [
+      "Black",
+      "Red",
+      "Yellow",
+      "Brown"
+    ]
   }
 ]
