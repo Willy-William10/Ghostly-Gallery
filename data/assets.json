@@ -381,5 +381,33 @@
       "Cyan",
       "Black"
     ]
+  },
+  {
+    "id": "887adf35-906b-4a18-a6aa-6f9e0953e4fe",
+    "title": "hollow knight 2",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Dark",
+    "aesthetic": "Dark",
+    "style": "Minimal",
+    "file": "assets/wallpapers/hollow-knight-2-887adf35.jpg",
+    "preview": "assets/wallpapers/hollow-knight-2-887adf35.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T22:10:54.7978498\u002B00:00",
+    "size": "31 KB",
+    "tags": [
+      "Indie",
+      "Games",
+      "Dark",
+      "Fanatsy"
+    ],
+    "colors": [
+      "Black",
+      "White",
+      "Gray"
+    ]
   }
 ]
