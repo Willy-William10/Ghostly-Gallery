@@ -322,5 +322,34 @@
       "Lavender",
       "Cyan"
     ]
+  },
+  {
+    "id": "0d31256e-cae4-4c23-b4d6-aecfa364d427",
+    "title": "Arch",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Anime",
+    "aesthetic": "Anime",
+    "style": "Minimal",
+    "file": "assets/wallpapers/arch-0d31256e.png",
+    "preview": "assets/wallpapers/arch-0d31256e.png",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T21:23:21.1523035\u002B00:00",
+    "size": "909 KB",
+    "tags": [
+      "arch linux",
+      "linux",
+      "anime",
+      "tech"
+    ],
+    "colors": [
+      "Royal Blue",
+      "Sky Blue",
+      "White",
+      "Peach"
+    ]
   }
 ]
