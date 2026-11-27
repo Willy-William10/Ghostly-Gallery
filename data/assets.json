@@ -117,7 +117,7 @@
     "type": "Desktop wallpaper",
     "theme": "Minimal",
     "aesthetic": "Minimal",
-    "style": "firewatch, forest, mountains, night, landscape",
+    "style": "Vector, Minimal, Illustration",
     "file": "assets/wallpapers/blue-light-house-8b4482bb.jpg",
     "preview": "assets/wallpapers/blue-light-house-8b4482bb.jpg",
     "collection": "",
@@ -126,7 +126,13 @@
     "packageId": "",
     "createdAt": "2026-11-27T14:56:08.5258002\u002B00:00",
     "size": "34 KB",
-    "tags": [],
+    "tags": [
+      "firewatch",
+      "forest",
+      "mountains",
+      "night",
+      "landscape"
+    ],
     "colors": []
   },
   {
