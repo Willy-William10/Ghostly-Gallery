@@ -409,5 +409,33 @@
       "White",
       "Gray"
     ]
+  },
+  {
+    "id": "e75b9960-666a-4cfb-abbd-a8c6fac1d7a5",
+    "title": "Github",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Minimal",
+    "aesthetic": "Minimal",
+    "style": "Minimal",
+    "file": "assets/wallpapers/github-e75b9960.jpg",
+    "preview": "assets/wallpapers/github-e75b9960.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T22:13:42.9069593\u002B00:00",
+    "size": "12 KB",
+    "tags": [
+      "Software",
+      "Minimal",
+      "Cats"
+    ],
+    "colors": [
+      "Black",
+      "Gray",
+      "Green",
+      "Red"
+    ]
   }
 ]
