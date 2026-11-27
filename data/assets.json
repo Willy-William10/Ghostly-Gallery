@@ -205,5 +205,33 @@
       "Brown",
       "White"
     ]
+  },
+  {
+    "id": "43d3fe32-73ea-46df-8221-785befb87fe6",
+    "title": "Aira",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Anime",
+    "aesthetic": "Anime",
+    "style": "Anime",
+    "file": "assets/wallpapers/aira-43d3fe32.jpg",
+    "preview": "assets/wallpapers/aira-43d3fe32.jpg",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T20:51:28.1011551\u002B00:00",
+    "size": "184 KB",
+    "tags": [
+      "anime",
+      "portrait",
+      "neon"
+    ],
+    "colors": [
+      "Blue",
+      "Pink",
+      "Orange",
+      "Yellow"
+    ]
   }
 ]
