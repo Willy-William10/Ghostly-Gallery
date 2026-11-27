@@ -290,5 +290,37 @@
       "Charcoal",
       "Black"
     ]
+  },
+  {
+    "id": "ef65ed22-39ce-45a2-8f26-c3b7534c4bb8",
+    "title": "anime_skull",
+    "category": "wallpapers",
+    "type": "Desktop wallpaper",
+    "theme": "Anime",
+    "aesthetic": "Anime",
+    "style": "Minimal",
+    "file": "assets/wallpapers/anime-skull-ef65ed22.png",
+    "preview": "assets/wallpapers/anime-skull-ef65ed22.png",
+    "collection": "",
+    "collectionId": "",
+    "package": "",
+    "packageId": "",
+    "createdAt": "2026-11-27T21:17:08.5067496\u002B00:00",
+    "size": "1006 KB",
+    "tags": [
+      "anime",
+      "skull",
+      "flowers",
+      "japanese",
+      "dark"
+    ],
+    "colors": [
+      "Charcoal",
+      "Crimson",
+      "Teal",
+      "Cream",
+      "Lavender",
+      "Cyan"
+    ]
   }
 ]
